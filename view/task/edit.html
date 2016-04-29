@@ -1,0 +1,130 @@
+{{!
+This file is part of pa11y-dashboard.
+
+pa11y-dashboard is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+pa11y-dashboard is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
+}}
+
+{{#content "title"}}
+	Edit URL
+{{/content}}
+
+{{#edited}}
+	<div class="col-md-12 clearfix" data-test="alert">
+		<div class="alert alert-success">
+			<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+			<strong>Success!</strong>
+			<p>Your changes have been saved.</p>
+		</div>
+	</div>
+{{/edited}}
+
+<form role="form" class="col-md-12" action="/{{task.id}}/edit" method="post" data-test="edit-url-form">
+
+	<div class="legend">
+		<h1 class="h2 crunch-top">Edit URL</h1>
+	</div>
+
+	{{#error}}
+		<div class="col-md-12 clearfix" data-test="error">
+			<div class="row">
+				<div class="alert alert-danger">
+					<strong>Oh my gosh!</strong>
+					<p>{{.}}</p>
+				</div>
+			</div>
+		</div>
+	{{/error}}
+
+	<div class="form-group clearfix">
+		<div class="row">
+			<div class="col-md-8 col-sm-8 col-xs-10">
+				<label class="control-label" for="new-task-name">Name</label>
+				<input class="form-control" id="new-task-name" type="text" placeholder="E.g. My Home Page" name="name" value="{{task.name}}"/>
+			</div>
+		</div>
+	</div>
+
+	<div class="form-group clearfix">
+		<div class="row">
+			<div class="col-md-8 col-sm-8 col-xs-10">
+				<label class="control-label" for="new-task-url">URL</label>
+				<input class="form-control" id="new-task-url" type="url" placeholder="E.g. http://mysite.com/" name="url" value="{{task.url}}" disabled/>
+			</div>
+		</div>
+	</div>
+
+	<div class="form-group clearfix">
+		<div class="row">
+			<div class="col-md-4 col-sm-4 col-xs-6">
+				<label class="control-label" for="new-task-standard">Standard</label>
+				<select data-role="new-task-select" class="form-control" id="new-task-standard" name="standard" disabled>
+					{{#standards}}
+						<option {{#selected}}selected{{/selected}}>{{title}}</option>
+					{{/standards}}
+				</select>
+			</div>
+		</div>
+	</div>
+
+	<div class="form-group clearfix">
+		<div class="row">
+			<div class="col-md-4 col-sm-4 col-xs-6">
+				<label class="control-label" for="new-task-timeout">Timeout (milliseconds)</label>
+				<input class="form-control" id="new-task-timeout" type="text" placeholder="E.g. 30000" name="timeout" value="{{task.timeout}}"/>
+			</div>
+		</div>
+	</div>
+
+	<div class="form-group clearfix">
+		<div class="row">
+			<div class="col-md-4 col-sm-4 col-xs-6">
+				<label class="control-label" for="new-task-username">Username</label>
+				<input class="form-control" id="new-task-username" type="text" name="username" value="{{task.username}}"/>
+			</div>
+		</div>
+	</div>
+
+	<div class="form-group clearfix">
+		<div class="row">
+			<div class="col-md-4 col-sm-4 col-xs-6">
+				<label class="control-label" for="new-task-password">Password</label>
+				<input class="form-control" id="new-task-password" type="text" name="password" value="{{task.password}}"/> <em>(Note: this will be stored and displayed in plain-text - only suitable for use in a secure environment)</em>
+			</div>
+		</div>
+	</div>
+
+	<p class="control-label"><b>Ignore these rules</b> <a target="_blank" href="https://github.com/springernature/pa11y/wiki/HTML-CodeSniffer-Rules">(full list of rules here)</a></p>
+
+	<div class="standards-lists">
+		{{#standards}}
+			<div data-role="standards-list" data-attr="{{title}}" class="form-group">
+				<p class="control-label rules-list-title ruled"><b>{{title}} Rules</b></p>
+				<ul class="list-unstyled">
+					{{#rules}}
+						<li>
+							<input class="pull-left" id="{{name}}" type="checkbox" name="ignore[]" value="{{name}}" {{#ignored}}checked{{/ignored}}/>
+							<label for="{{name}}" title="{{description}}" data-role="rules-tooltip" class="checkbox">
+								{{name}}
+							</label>
+						</li>
+					{{/rules}}
+				</ul>
+			</div>
+		{{/standards}}
+	</div>
+
+	<button type="submit" class="btn btn-success">Save changes <span class="glyphicon glyphicon-save"></span></button>
+	<a href="/{{task.id}}/edit" class="btn btn-primary">Undo <span class="glyphicon glyphicon-refresh"></span></a>
+
+</form>

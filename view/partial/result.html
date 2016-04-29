@@ -1,0 +1,189 @@
+{{!
+This file is part of pa11y-dashboard.
+
+pa11y-dashboard is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+pa11y-dashboard is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
+}}
+
+<div class="col-md-3 aside">
+	<div class="row">
+		<div class="col-md-12 col-sm-6 col-xs-12">
+			<ul data-role="task-list" class="clearfix list-unstyled floated-list task-stats">
+				{{#mainResult}}
+					<li class="danger"><a href="#errors" title="See errors">{{count.error}}<span class="stat-type">Errors</span></a></li>
+					<li class="warning"><a href="#warnings" title="See warnings">{{count.warning}}<span class="stat-type">Warnings</span></a></li>
+					<li class="info last"><a href="#notices" title="See notices">{{count.notice}}<span class="stat-type">Notices</span></a></li>
+				{{/mainResult}}
+			</ul>
+		</div>
+		<div class="action-buttons col-md-12 col-sm-6 clearfix">
+			<div class="row">
+				<div class="col-md-12 col-sm-6 col-xs-12">
+			        <a href="{{mainResult.hrefCsv}}" class="btn-full-width btn btn-default" data-test="download-csv">
+			        	Download CSV <span class="glyphicon glyphicon-download"></span>
+			        </a>
+				</div>
+				<div class="col-md-12 col-sm-6 col-xs-12">
+			        <a href="{{mainResult.hrefJson}}" class="btn-full-width btn btn-default" data-test="download-json">
+			        	Download JSON <span class="glyphicon glyphicon-download"></span>
+			        </a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row date-selector-row">
+		<div id="top" class="col-md-12 col-sm-12 clearfix">
+			<div class="well dark-well">
+				<div class="date-selector">
+					<div class="btn-group block-level clearfix">
+						<h2 class="h4">
+							<span class="glyphicon glyphicon-calendar"></span>&nbsp;&nbsp;{{date-format task.lastResult.date format="DD MMM YYYY"}}
+						</h2>
+						<h3 class="h5 show-stats">Select a date to show stats for:</h3>
+						<ul role="navigation" class="dates-list">
+							{{#results}}
+							<li><a class="" href="{{href}}">{{date-format date format="DD MMM YYYY"}}</a></li>
+							{{/results}}
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12 col-sm-12 clearfix">
+			<div class="well">
+				<h4 class="crunch-top">View results in browser</h4>
+				<p class="crunch-bottom">pa11y uses HTML_CodeSniffer to find accessibility issues. <a href="http://squizlabs.github.io/HTML_CodeSniffer/">Use their bookmarklet</a> to view results on the page you are testing.</p>
+			</div>
+	    </div>
+	</div>
+</div>
+
+<div class="col-md-9" data-role="expandable-results" role="main">
+	{{#if mainResult.count.error}}
+		<div class="heading label-danger pointer showing first" id="errors" data-test="task-errors" data-role="expander" role="button" tabindex="0" aria-expanded="true" aria-controls="errors-list">
+			<span class="pull-right expander"> - <span class="hide">(close panel)</span></span>
+			Errors ( {{mainResult.count.error}} )
+		</div>
+		<div class="task-danger tasks-list collapse clearfix in" id="errors-list">
+
+			<ul class="list-unstyled">
+				{{#mainResult.errors}}
+					<li>
+						<p class="crunch rule-name">{{code}} <span class="badge">{{count}}</span></p>
+						<p>{{message}}</p>
+						{{#unless readonly}}
+							{{#if ../../isTaskPage}}
+								<form action="{{../../../task.hrefIgnore}}" method="post">
+									<input type="hidden" name="rule" value="{{code}}"/>
+									<input type="submit" class="btn btn-sm" value="Ignore rule"/>
+								</form>
+							{{/if}}
+						{{/unless}}
+					</li>
+				{{/mainResult.errors}}
+			</ul>
+			<a class="pull-right" href="#top" data-role="top">Back to top</a>
+		</div>
+	{{else}}
+		<p class="heading label-danger" id="errors">Well done! You have 0 errors. <span class="glyphicon glyphicon-ok pull-right"></span></p>
+	{{/if}}
+
+	{{#if mainResult.count.warning}}
+		<div class="heading label-warning pointer" id="warnings" data-test="task-warnings" data-role="expander" role="button" tabindex="0" aria-expanded="false" aria-controls="warnings-list">
+			<span class="pull-right expander"> + <span class="hide">(open panel)</span></span>
+			Warnings ( {{mainResult.count.warning}} )
+		</div>
+		<div class="task-warning tasks-list collapse clearfix" id="warnings-list">
+			<ul class="list-unstyled">
+				{{#mainResult.warnings}}
+					<li>
+						<p class="crunch rule-name">{{code}} <span class="badge">{{count}}</span></p>
+						<p>{{message}}</p>
+						{{#unless readonly}}
+							{{#if ../../isTaskPage}}
+								<form action="{{../../../task.hrefIgnore}}" method="post">
+									<input type="hidden" name="rule" value="{{code}}"/>
+									<input type="submit" class="btn btn-sm" value="Ignore rule"/>
+								</form>
+							{{/if}}
+						{{/unless}}
+					</li>
+				{{/mainResult.warnings}}
+			</ul>
+			<a class="pull-right" href="#top" data-role="top">Back to top</a>
+		</div>
+
+	{{else}}
+		<p class="heading label-warning" id="warnings">Well done! You have 0 warnings. <span class="glyphicon glyphicon-ok pull-right"></span></p>
+	{{/if}}
+
+	{{#if mainResult.count.notice}}
+		<div class="heading label-info pointer" id="notices" data-test="task-notices" data-role="expander" role="button" tabindex="0" aria-expanded="false" aria-controls="notices-list">
+			<span class="pull-right expander"> + <span class="hide">(open panel)</span></span>
+			Notices ( {{mainResult.count.notice}} )
+		</div>
+		<div class="task-info tasks-list collapse clearfix" id="notices-list">
+			<ul class="list-unstyled">
+				{{#mainResult.notices}}
+					<li>
+						<p class="crunch rule-name">{{code}} <span class="badge">{{count}}</span></p>
+						<p>{{message}}</p>
+						{{#unless readonly}}
+							{{#if ../../isTaskPage}}
+								<form action="{{../../../task.hrefIgnore}}" method="post">
+									<input type="hidden" name="rule" value="{{code}}"/>
+									<input type="submit" class="btn btn-sm" value="Ignore rule"/>
+								</form>
+							{{/if}}
+						{{/unless}}
+					</li>
+				{{/mainResult.notices}}
+			</ul>
+			<a class="pull-right" href="#top" data-role="top">Back to top</a>
+		</div>
+	{{else}}
+		<p class="heading label-info" id="notices">Well done! You have 0 notices. <span class="glyphicon glyphicon-ok pull-right"></span></p>
+	{{/if}}
+
+	{{#if mainResult.ignore.length}}
+		<div class="heading label-default pointer" id="ignore" data-role="expander" role="button" tabindex="0" aria-expanded="false" aria-controls="ignore-list">
+			<span class="pull-right expander"> + <span class="hide">(open panel)</span></span>
+			Ignored Rules ( {{mainResult.ignore.length}} )
+		</div>
+		<div class="task-default tasks-list collapse clearfix" id="ignore-list">
+			<ul class="list-unstyled">
+			    {{#mainResult.ignore}}
+			        <li>
+						<p class="crunch rule-name">{{name}}</p>
+						{{#if description}}
+							<p>{{description}}</p>
+						{{/if}}
+						{{#unless readonly}}
+							{{#if ../../isTaskPage}}
+								<form action="{{../../../task.hrefUnignore}}" method="post">
+									<input type="hidden" name="rule" value="{{name}}"/>
+									<input type="submit" class="btn btn-sm" value="Unignore rule"/>
+								</form>
+							{{/if}}
+						{{/unless}}
+					</li>
+			    {{/mainResult.ignore}}
+			</ul>
+			<a class="pull-right" href="#top" data-role="top">Back to top</a>
+		</div>
+	{{else}}
+		<p class="heading label-default">You have no ignored rules.</p>
+	{{/if}}
+</div>
