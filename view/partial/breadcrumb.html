@@ -20,8 +20,12 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 			<div class="col-md-12">
 				<ol class="breadcrumb">
 					{{#if isNewTaskPage}}
-						<li><a href="/client/{{client}}">Dashboard</a></li>
-						<li class="active">Add URL</li>
+						{{#if client}}
+							<li><a href="/client/{{client}}">Dashboard</a></li>
+							<li class="active">Add URL</li>
+						{{else}}
+							<li><a href="/client/none">Dashboard</a></li>
+						{{/if}}
 					{{else}}
 						<li><a href="/client/{{task.client}}">Dashboard</a></li>
 					{{/if}}

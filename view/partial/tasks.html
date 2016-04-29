@@ -23,10 +23,17 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 				<p class="supersize-me crunch">+</p>
 			</span>
 		{{else}}
-			<a class="well task-card-link crunch-bottom" data-role="add-task" href="/{{tasks.0.client}}/new" data-test="add-task">
-				<p class="h3 crunch">Add new URL</p>
-				<p class="supersize-me crunch">+</p>
-			</a>
+			{{#if tasks.0.client}}
+				<a class="well task-card-link crunch-bottom" data-role="add-task" href="/{{tasks.0.client}}/new" data-test="add-task">
+					<p class="h3 crunch">Add new URL</p>
+					<p class="supersize-me crunch">+</p>
+				</a>
+			{{else}}
+				<a class="well task-card-link crunch-bottom" data-role="add-task" href="/new" data-test="add-task">
+					<p class="h3 crunch">Add new URL</p>
+					<p class="supersize-me crunch">+</p>
+				</a>
+			{{/if}}
 		{{/if}}
 	</li>
 	<table style="width:100%">
