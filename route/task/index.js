@@ -43,7 +43,8 @@ function route (app) {
 					ruleIgnored: (typeof req.query['rule-ignored'] !== 'undefined'),
 					ruleUnignored: (typeof req.query['rule-unignored'] !== 'undefined'),
 					hasOneResult: (presentedResults.length < 2),
-					isTaskPage: true
+					isTaskPage: true,
+					client: task.client
 				});
 			});
 		});

@@ -32,27 +32,28 @@ function route (app) {
 			var i;
 			var length = tasks.length;
 
-			console.log("tasks: " + JSON.stringify(tasks));
+			//console.log("tasks: " + JSON.stringify(tasks));
 			// "http://littleforest.co.uk"
 			//client = "http://" + client;
 			console.log("client id: " + client);
 
 			var clientTasks = [];
 			for (i=0; i<length;i++) {
-				console.log("task: " + JSON.stringify(tasks[i]));
-				console.log("url: " + JSON.stringify(tasks[i].url));
-				console.log("client id: " + JSON.stringify(tasks[i].client));
+				//console.log("task: " + JSON.stringify(tasks[i]));
+				//console.log("url: " + JSON.stringify(tasks[i].url));
+				//console.log("client id: " + JSON.stringify(tasks[i].client));
 				if (tasks[i].client === client) {
 					clientTasks.push(tasks[i]);
 				}
 			}
 
-			console.log("clientTasks: " + JSON.stringify(clientTasks));
+			//console.log("clientTasks: " + JSON.stringify(clientTasks));
 
 			res.render('index', {
 				tasks: clientTasks.map(presentTask),
 				deleted: (typeof req.query.deleted !== 'undefined'),
-				isHomePage: true
+				isHomePage: true,
+				client: client
 			});
 		});
 	});
