@@ -35,12 +35,14 @@ function route (app) {
 		});
 	});
 
-	app.express.post('/:id/delete', function (req, res, next) {
+	app.express.post('/:id/delete/:client', function (req, res, next) {
+		var client = req.params.client;
+
 		app.webservice.task(req.params.id).remove(function (err) {
 			if (err) {
 				return next();
 			}
-			res.redirect('/?deleted');
+			res.redirect('/client/'+client+'/?deleted');
 		});
 	});
 
