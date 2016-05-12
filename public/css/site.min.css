@@ -6380,7 +6380,7 @@ span {
     font-size: 16px;
     color: #666;
     display: inline-block;
-    vertical-align: middle;
+    /*vertical-align: middle;*/
 }
 
 .white-box{
