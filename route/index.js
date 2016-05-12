@@ -23,7 +23,7 @@ module.exports = route;
 function route (app) {
 	app.express.get('/client/:client', function (req, res, next) {
 		var client = req.params.client;
-		console.log("client url param: " + client);
+		//console.log("client url param: " + client);
 
 		app.webservice.tasks.get({lastres: true}, function (err, tasks) {
 			if (err) {
@@ -35,7 +35,7 @@ function route (app) {
 			//console.log("tasks: " + JSON.stringify(tasks));
 			// "http://littleforest.co.uk"
 			//client = "http://" + client;
-			console.log("client id: " + client);
+			//console.log("client id: " + client);
 
 			var clientTasks = [];
 			for (i=0; i<length;i++) {
