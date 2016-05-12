@@ -14,15 +14,15 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 }}
-<div class="col-md-12 zfix">
+<div class="col-lg-12 zfix">
 	<div class="ruled task-header">
-		<div class="row clearfix">
-			<div class="col-md-12">
+		<div class="row clearfix white-box">
+			<div class="col-lg-12">
 				<h1 class="h2 crunch-top">{{task.name}}</h1>
 				<p class="h4">{{simplify-url task.url}}<span class="h5"> ({{task.standard}})</span></p>
 			</div>
 			<div class="run-details task-header clearfix">
-				<div class="col-md-12 clearfix">
+				<div class="col-lg-12 clearfix">
 					{{#unless readonly}}
 				        <ul class="inline-list" role="menu">
 				          	<li><a href="/{{task.id}}/edit">Edit this task</a></li>

@@ -25,7 +25,7 @@ function route (app) {
 	app.express.get('/:clientid/new', function (req, res) {
 		var id = req.params.clientid;
 
-		console.log("In /clientid/new");
+		//console.log("In /clientid/new");
 		var standards = getStandards().map(function (standard) {
 			if (standard.title === 'WCAG2AA') {
 				standard.selected = true;
@@ -41,7 +41,7 @@ function route (app) {
 
 	app.express.get('/new', function (req, res) {
 
-		console.log("In /new");
+		//console.log("In /new");
 		var standards = getStandards().map(function (standard) {
 			if (standard.title === 'WCAG2AA') {
 				standard.selected = true;

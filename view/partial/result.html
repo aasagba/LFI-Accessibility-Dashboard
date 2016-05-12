@@ -15,9 +15,9 @@ You should have received a copy of the GNU General Public License
 along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 }}
 
-<div class="col-md-3 aside">
+<div class="col-lg-3 aside">
 	<div class="row">
-		<div class="col-md-12 col-sm-6 col-xs-12">
+		<div class="col-lg-12 col-sm-6 col-xs-12">
 			<ul data-role="task-list" class="clearfix list-unstyled floated-list task-stats">
 				{{#mainResult}}
 					<li class="danger"><a href="#errors" title="See errors">{{count.error}}<span class="stat-type">Errors</span></a></li>
@@ -26,14 +26,14 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 				{{/mainResult}}
 			</ul>
 		</div>
-		<div class="action-buttons col-md-12 col-sm-6 clearfix">
+		<div class="action-buttons col-lg-12 col-sm-6 clearfix">
 			<div class="row">
-				<div class="col-md-12 col-sm-6 col-xs-12">
+				<div class="col-lgd-12 col-sm-6 col-xs-12">
 			        <a href="{{mainResult.hrefCsv}}" class="btn-full-width btn btn-default" data-test="download-csv">
 			        	Download CSV <span class="glyphicon glyphicon-download"></span>
 			        </a>
 				</div>
-				<div class="col-md-12 col-sm-6 col-xs-12">
+				<div class="col-lg-12 col-sm-6 col-xs-12">
 			        <a href="{{mainResult.hrefJson}}" class="btn-full-width btn btn-default" data-test="download-json">
 			        	Download JSON <span class="glyphicon glyphicon-download"></span>
 			        </a>
@@ -42,12 +42,12 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 		</div>
 	</div>
 	<div class="row date-selector-row">
-		<div id="top" class="col-md-12 col-sm-12 clearfix">
+		<div id="top" class="col-lg-12 col-sm-12 clearfix">
 			<div class="well dark-well">
 				<div class="date-selector">
 					<div class="btn-group block-level clearfix">
 						<h2 class="h4">
-							<span class="glyphicon glyphicon-calendar"></span>&nbsp;&nbsp;{{date-format task.lastResult.date format="DD MMM YYYY"}}
+							<span class="calendar"></span>&nbsp;&nbsp;{{date-format task.lastResult.date format="DD MMM YYYY"}}
 						</h2>
 						<h3 class="h5 show-stats">Select a date to show stats for:</h3>
 						<ul role="navigation" class="dates-list">
@@ -61,7 +61,7 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-12 col-sm-12 clearfix">
+		<div class="col-lg-12 col-sm-12 clearfix">
 			<div class="well">
 				<h4 class="crunch-top">View results in browser</h4>
 				<p class="crunch-bottom">pa11y uses HTML_CodeSniffer to find accessibility issues. <a href="http://squizlabs.github.io/HTML_CodeSniffer/">Use their bookmarklet</a> to view results on the page you are testing.</p>
@@ -70,7 +70,7 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 	</div>
 </div>
 
-<div class="col-md-9" data-role="expandable-results" role="main">
+<div class="col-lg-9" data-role="expandable-results" role="main">
 	{{#if mainResult.count.error}}
 		<div class="heading label-danger pointer showing first" id="errors" data-test="task-errors" data-role="expander" role="button" tabindex="0" aria-expanded="true" aria-controls="errors-list">
 			<span class="pull-right expander"> - <span class="hide">(close panel)</span></span>
