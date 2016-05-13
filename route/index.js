@@ -25,32 +25,13 @@ function route (app) {
 		var client = req.params.client;
 		//console.log("client url param: " + client);
 
-		app.webservice.tasks.get({lastres: true}, function (err, tasks) {
+		app.webservice.tasks.get({lastres: true, client: client}, function (err, tasks) {
 			if (err) {
 				return next(err);
 			}
-			var i;
-			var length = tasks.length;
-
-			//console.log("tasks: " + JSON.stringify(tasks));
-			// "http://littleforest.co.uk"
-			//client = "http://" + client;
-			//console.log("client id: " + client);
-
-			var clientTasks = [];
-			for (i=0; i<length;i++) {
-				//console.log("task: " + JSON.stringify(tasks[i]));
-				//console.log("url: " + JSON.stringify(tasks[i].url));
-				//console.log("client id: " + JSON.stringify(tasks[i].client));
-				if (tasks[i].client === client) {
-					clientTasks.push(tasks[i]);
-				}
-			}
-
-			//console.log("clientTasks: " + JSON.stringify(clientTasks));
 
 			res.render('index', {
-				tasks: clientTasks.map(presentTask),
+				tasks: tasks.map(presentTask),
 				deleted: (typeof req.query.deleted !== 'undefined'),
 				isHomePage: true,
 				client: client
