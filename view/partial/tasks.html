@@ -66,7 +66,7 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 				//console.log("row click");
 				// don't fire event if options drop-down was clicked
 				if (!event.originalEvent.dropdown) {
-					window.document.location = '{{href}}';
+					window.document.location = $(this).attr("task");
 				}
 			});
 
@@ -76,7 +76,7 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 
 			});
 		</script>
-		<tr class="row" data-test="task" data-role="task" data-keywords="{{lowercase name}} {{lowercase standard}} {{simplify-url url}}" >
+		<tr task="{{href}}" class="row" data-test="task" data-role="task" data-keywords="{{lowercase name}} {{lowercase standard}} {{simplify-url url}}" >
 
 				<td style="width:30%;"><a class="" title="Details for URL {{simplify-url url}}" href="{{href}}">{{name}}</a></td>
 				<td style="width:17%;"><a class="" title="Details for URL {{simplify-url url}}" href="{{href}}">{{standard}}</a></td>

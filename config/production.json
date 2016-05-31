@@ -6,7 +6,7 @@
 	"webservice": {
 	  	"user": "root",
 	  	"password": "HbUn5w65",
-		"database": "mongodb://root:HbUn5w65@87.106.19.47/pa11y-webservice",
+		"database": "mongodb://87.106.19.47/pa11y-webservice",
 		"host": "127.0.0.1",
 		"port": 3000,
 		"cron": "0 6 1 JAN-DEC *"
