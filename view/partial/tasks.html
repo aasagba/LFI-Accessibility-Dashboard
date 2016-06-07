@@ -18,25 +18,25 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 <ul class="list-unstyled clearfix crunch-bottom">
 	<li class="col-md-2 col-sm-6 task-card add-task">
 		{{#if readonly}}
-			<span class="well task-card-link crunch-bottom">
-				<p class="h3 crunch">Add new URL</p>
-				<p class="supersize-me crunch">+</p>
-			</span>
+         <span class="well task-card-link crunch-bottom">
+            <p class="h3 crunch">Add new URL</p>
+            <p class="supersize-me crunch">+</p>
+         </span>
 		{{else}}
-			{{#if tasks.0.client}}
-				<a class="well task-card-link crunch-bottom" data-role="add-task" href="/{{tasks.0.client}}/new" data-test="add-task">
-					<p class="h3 crunch">Add new URL</p>
-					<p class="supersize-me crunch">+</p>
-				</a>
-			{{else}}
-				<a class="well task-card-link crunch-bottom" data-role="add-task" href="/new" data-test="add-task">
-					<p class="h3 crunch">Add new URL</p>
-					<p class="supersize-me crunch">+</p>
-				</a>
-			{{/if}}
+		{{#if tasks.0.client}}
+		<a class="well task-card-link crunch-bottom" data-role="add-task" href="/{{tasks.0.client}}/new" data-test="add-task">
+			<p class="h3 crunch">Add new URL</p>
+			<p class="supersize-me crunch">+</p>
+		</a>
+		{{else}}
+		<a class="well task-card-link crunch-bottom" data-role="add-task" href="/new" data-test="add-task">
+			<p class="h3 crunch">Add new URL</p>
+			<p class="supersize-me crunch">+</p>
+		</a>
+		{{/if}}
 		{{/if}}
 	</li>
-	<table style="width:100%">
+	<table id="searchable-table" style="width:100%">
 		<tr>
 			<th>Page</th>
 			<th>Grade</th>
@@ -48,8 +48,8 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 		</tr>
 		<style>
 			li.add-task a {/*position: absolute;
-				top: -77px;
-				left: 0px;padding:12px*/}
+            top: -77px;
+            left: 0px;padding:12px*/}
 			th {background-color: #e4eaed;}
 			tr {border-bottom: 1px solid #e4eaed;}
 			td, th {text-align: center}
@@ -57,7 +57,6 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 			li.add-task a p.h3 {font-size: 18px}
 
 		</style>
-
 
 		{{#each tasks}}
 		<script>
@@ -78,32 +77,32 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 		</script>
 		<tr task="{{href}}" class="row" data-test="task" data-role="task" data-keywords="{{lowercase name}} {{lowercase standard}} {{simplify-url url}}" >
 
-				<td style="width:30%;"><a class="" title="Details for URL {{simplify-url url}}" href="{{href}}">{{name}}</a></td>
-				<td style="width:17%;"><a class="" title="Details for URL {{simplify-url url}}" href="{{href}}">{{standard}}</a></td>
-				{{#if lastResult}}
-					{{#lastResult}}
-						<td style="width:10%;" class="danger">{{count.error}}</td>
-						<td style="width:10%;" class="warning">{{count.warning}}</td>
-						<td style="width:10%;" class="info last">{{count.notice}}</td>
-					{{/lastResult}}
-					<td style="width:20%;">{{date-format lastResult.date format="DD MMM YYYY"}}</td>
-				{{else}}
-					<td style="width:10%;">No results</td>
-					<td style="width:10%;">No results</td>
-					<td style="width:10%;">No results</td>
-					<td style="width:20%;">Not run</td>
-				{{/if}}
+			<td style="width:30%;"><a class="" title="Details for URL {{simplify-url url}}" href="{{href}}">{{name}}</a></td>
+			<td style="width:17%;"><a class="" title="Details for URL {{simplify-url url}}" href="{{href}}">{{standard}}</a></td>
+			{{#if lastResult}}
+			{{#lastResult}}
+			<td style="width:10%;" class="danger">{{count.error}}</td>
+			<td style="width:10%;" class="warning">{{count.warning}}</td>
+			<td style="width:10%;" class="info last">{{count.notice}}</td>
+			{{/lastResult}}
+			<td style="width:20%;">{{date-format lastResult.date format="DD MMM YYYY"}}</td>
+			{{else}}
+			<td style="width:10%;">No results</td>
+			<td style="width:10%;">No results</td>
+			<td style="width:10%;">No results</td>
+			<td style="width:20%;">Not run</td>
+			{{/if}}
 
 			{{#unless ../readonly}}
-				<td class="btn-group options-button text-right" style="width:3%;position: relative !important;">
-					<button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown"><span class="sr-only">Options</span><span class="glyphicon glyphicon-cog"></span></button>
-					<ul class="dropdown-menu pull-right" role="menu">
-						<li><a href="{{href}}/edit">Edit this task</a></li>
-						<li><a href="{{href}}/delete">Delete this task</a></li>
-						<li class="divider"></li>
-						<li><a href="{{href}}/run" data-test="run-task">Run pa11y</a></li>
-					</ul>
-				</td>
+			<td class="btn-group options-button text-right" style="width:3%;position: relative !important;">
+				<button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown"><span class="sr-only">Options</span><span class="glyphicon glyphicon-cog"></span></button>
+				<ul class="dropdown-menu pull-right" role="menu">
+					<li><a href="{{href}}/edit">Edit this task</a></li>
+					<li><a href="{{href}}/delete">Delete this task</a></li>
+					<li class="divider"></li>
+					<li><a href="{{href}}/run" data-test="run-task">Run pa11y</a></li>
+				</ul>
+			</td>
 			{{/unless}}
 		</tr>
 		{{/each}}
