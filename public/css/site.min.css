@@ -961,7 +961,7 @@ pre code {
         width: 41.66666666666667%
     }
     .col-md-6 {
-        width: 50%
+        width: 40%
     }
     .col-md-7 {
         width: 58.333333333333336%
@@ -2137,7 +2137,8 @@ input[type=button].btn-block {
 }
 .glyphicon {
     position: relative;
-    top: 11px;
+    /*top: 11px;*/
+    top: 6px;
     display: inline-block;
     font-family: 'Glyphicons Halflings';
     font-style: normal;
@@ -5770,7 +5771,8 @@ ul.date-links {
     content: "";
     height: 90px;
     width: 90px;
-    left: 50%;
+    /*left: 50%;*/
+    left: 58.5%;
     top: -45px;
     background-color: #f6f8f9;
     transform: translateX(-50%) rotate(45deg);
@@ -6587,13 +6589,19 @@ span.divider {
 }
 
 #searchable-table thead tr th.sorted {
-    
+
 }
 
 #searchable-table thead tr th.reverse-sorted {
 
 }
-
+.searchable-table th {background-color: #e4eaed;}
+.searchable-table tr {border-bottom: 1px solid #e4eaed;}
+.searchable-table td, .searchable-table th {text-align: center}
+.searchable-table tr:hover {background-color: #f0f3f5}
+.searchable-table li.add-task a p.h3 {font-size: 18px}
+.searchable-table td, .searchable-table th { border: 1px solid #eaeff1;}
+.searchable-table th:hover {background-color: #d3d9dc;}
 /*Footer*/
 .footer{
     background: #FFF;

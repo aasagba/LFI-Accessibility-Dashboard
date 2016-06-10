@@ -15,21 +15,11 @@ You should have received a copy of the GNU General Public License
 along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 }}
 
-<style>
-	li.add-task a {/*position: absolute;
-				top: -77px;
-				left: 0px;padding:12px*/}
-	th {background-color: #e4eaed;}
-	tr {border-bottom: 1px solid #e4eaed;}
-	td, th {text-align: center}
-	tr:hover {background-color: #f0f3f5}
-	li.add-task a p.h3 {font-size: 18px}
-
-</style>
 <script>
 
 	$("tr.row").on("click", function (event) {
 		//console.log("row click");
+
 		// don't fire event if options drop-down was clicked
 		if (!event.originalEvent.dropdown) {
 			window.document.location = $(this).attr("task");
@@ -44,6 +34,7 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 </script>
 
 <ul class="list-unstyled clearfix crunch-bottom">
+	<!--
 	<li class="col-md-2 col-sm-6 task-card add-task">
 		{{#if readonly}}
          <span class="well task-card-link crunch-bottom">
@@ -63,8 +54,8 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 		</a>
 		{{/if}}
 		{{/if}}
-	</li>
-	<table id="searchable-table" name="searchable-table" class="" style="width:100%">
+	</li>-->
+	<table id="searchable-table" name="searchable-table" class="searchable-table" style="width:100%">
 		<thead>
 			<tr>
 				<th onclick="sort_table(tasks, 0, asc1, event); asc1 *= -1; asc2 = 1; asc3 = 1; asc4 = 1; asc5 = 1; asc6 = 1;" class="unsorted" style="width:30%;">Page</th>
