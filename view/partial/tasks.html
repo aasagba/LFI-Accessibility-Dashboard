@@ -15,6 +15,34 @@ You should have received a copy of the GNU General Public License
 along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 }}
 
+<style>
+	li.add-task a {/*position: absolute;
+				top: -77px;
+				left: 0px;padding:12px*/}
+	th {background-color: #e4eaed;}
+	tr {border-bottom: 1px solid #e4eaed;}
+	td, th {text-align: center}
+	tr:hover {background-color: #f0f3f5}
+	li.add-task a p.h3 {font-size: 18px}
+
+</style>
+<script>
+
+	$("tr.row").on("click", function (event) {
+		//console.log("row click");
+		// don't fire event if options drop-down was clicked
+		if (!event.originalEvent.dropdown) {
+			window.document.location = $(this).attr("task");
+		}
+	});
+
+	$("button.btn").on("click", function (event) {
+		//console.log("button click");
+		event.originalEvent.dropdown = true;
+
+	});
+</script>
+
 <ul class="list-unstyled clearfix crunch-bottom">
 	<li class="col-md-2 col-sm-6 task-card add-task">
 		{{#if readonly}}
@@ -36,75 +64,53 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 		{{/if}}
 		{{/if}}
 	</li>
-	<table id="searchable-table" style="width:100%">
-		<tr>
-			<th>Page</th>
-			<th>Grade</th>
-			<th>Error</th>
-			<th>Warn</th>
-			<th>Info</th>
-			<th>Last Run</th>
-			<th></th>
-		</tr>
-		<style>
-			li.add-task a {/*position: absolute;
-            top: -77px;
-            left: 0px;padding:12px*/}
-			th {background-color: #e4eaed;}
-			tr {border-bottom: 1px solid #e4eaed;}
-			td, th {text-align: center}
-			tr:hover {background-color: #f0f3f5}
-			li.add-task a p.h3 {font-size: 18px}
+	<table id="searchable-table" name="searchable-table" class="" style="width:100%">
+		<thead>
+			<tr>
+				<th onclick="sort_table(tasks, 0, asc1, event); asc1 *= -1; asc2 = 1; asc3 = 1; asc4 = 1; asc5 = 1; asc6 = 1;" class="unsorted" style="width:30%;">Page</th>
+				<th onclick="sort_table(tasks, 1, asc2, event); asc2 *= -1; asc3 = 1; asc4 = 1; asc5 = 1; asc6 = 1; asc1 = 1;" class="unsorted" style="width:17%;">Grade</th>
+				<th onclick="sort_table(tasks, 2, asc3, event); asc3 *= -1; asc4 = 1; asc5 = 1; asc6 = 1; asc1 = 1; asc2 = 1;" class="unsorted" style="width:10%;">Error</th>
+				<th onclick="sort_table(tasks, 3, asc4, event); asc4 *= -1; asc5 = 1; asc6 = 1; asc1 = 1; asc2 = 1; asc3 = 1;" class="unsorted" style="width:10%;">Warn</th>
+				<th onclick="sort_table(tasks, 4, asc5, event); asc5 *= -1; asc6 = 1; asc1 = 1; asc2 = 1; asc3 = 1; asc4 = 1;" class="unsorted" style="width:10%;">Info</th>
+				<th onclick="sort_table(tasks, 5, asc6, event); asc6 *= -1; asc1 = 1; asc2 = 1; asc3 = 1; asc4 = 1; asc5 = 1;" class="unsorted"  style="width:20%;">Last Run</th>
+				<th style="width:3%;"></th>
+			</tr>
+		</thead>
+		<tbody id="tasks">
 
-		</style>
+			{{#each tasks}}
 
-		{{#each tasks}}
-		<script>
+				<tr task="{{href}}" class="row" data-test="task" data-role="task" data-keywords="{{lowercase name}} {{lowercase standard}} {{simplify-url url}}" >
 
-			$("tr.row").on("click", function (event) {
-				//console.log("row click");
-				// don't fire event if options drop-down was clicked
-				if (!event.originalEvent.dropdown) {
-					window.document.location = $(this).attr("task");
-				}
-			});
+					<td style="width:30%;"><a class="" title="Details for URL {{simplify-url url}}" href="{{href}}">{{name}}</a></td>
+					<td style="width:17%;"><a class="" title="Details for URL {{simplify-url url}}" href="{{href}}">{{standard}}</a></td>
+					{{#if lastResult}}
+					{{#lastResult}}
+					<td style="width:10%;" class="danger">{{count.error}}</td>
+					<td style="width:10%;" class="warning">{{count.warning}}</td>
+					<td style="width:10%;" class="info last">{{count.notice}}</td>
+					{{/lastResult}}
+					<td style="width:20%;">{{date-format lastResult.date format="DD MMM YYYY"}}</td>
+					{{else}}
+					<td style="width:10%;">No results</td>
+					<td style="width:10%;">No results</td>
+					<td style="width:10%;">No results</td>
+					<td style="width:20%;">Not run</td>
+					{{/if}}
 
-			$("button.btn").on("click", function (event) {
-				//console.log("button click");
-				event.originalEvent.dropdown = true;
-
-			});
-		</script>
-		<tr task="{{href}}" class="row" data-test="task" data-role="task" data-keywords="{{lowercase name}} {{lowercase standard}} {{simplify-url url}}" >
-
-			<td style="width:30%;"><a class="" title="Details for URL {{simplify-url url}}" href="{{href}}">{{name}}</a></td>
-			<td style="width:17%;"><a class="" title="Details for URL {{simplify-url url}}" href="{{href}}">{{standard}}</a></td>
-			{{#if lastResult}}
-			{{#lastResult}}
-			<td style="width:10%;" class="danger">{{count.error}}</td>
-			<td style="width:10%;" class="warning">{{count.warning}}</td>
-			<td style="width:10%;" class="info last">{{count.notice}}</td>
-			{{/lastResult}}
-			<td style="width:20%;">{{date-format lastResult.date format="DD MMM YYYY"}}</td>
-			{{else}}
-			<td style="width:10%;">No results</td>
-			<td style="width:10%;">No results</td>
-			<td style="width:10%;">No results</td>
-			<td style="width:20%;">Not run</td>
-			{{/if}}
-
-			{{#unless ../readonly}}
-			<td class="btn-group options-button text-right" style="width:3%;position: relative !important;">
-				<button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown"><span class="sr-only">Options</span><span class="glyphicon glyphicon-cog"></span></button>
-				<ul class="dropdown-menu pull-right" role="menu">
-					<li><a href="{{href}}/edit">Edit this task</a></li>
-					<li><a href="{{href}}/delete">Delete this task</a></li>
-					<li class="divider"></li>
-					<li><a href="{{href}}/run" data-test="run-task">Run pa11y</a></li>
-				</ul>
-			</td>
-			{{/unless}}
-		</tr>
-		{{/each}}
+					{{#unless ../readonly}}
+					<td class="btn-group options-button text-right" style="width:3%;position: relative !important;">
+						<button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown"><span class="sr-only">Options</span><span class="glyphicon glyphicon-cog"></span></button>
+						<ul class="dropdown-menu pull-right" role="menu">
+							<li><a href="{{href}}/edit">Edit this task</a></li>
+							<li><a href="{{href}}/delete">Delete this task</a></li>
+							<li class="divider"></li>
+							<li><a href="{{href}}/run" data-test="run-task">Run pa11y</a></li>
+						</ul>
+					</td>
+					{{/unless}}
+				</tr>
+			{{/each}}
+		</tbody>
 	</table>
 </ul>

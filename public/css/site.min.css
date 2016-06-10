@@ -2137,7 +2137,7 @@ input[type=button].btn-block {
 }
 .glyphicon {
     position: relative;
-    top: 1px;
+    top: 11px;
     display: inline-block;
     font-family: 'Glyphicons Halflings';
     font-style: normal;
@@ -6578,6 +6578,20 @@ span.divider {
     position: relative;
     z-index: 1000;
     float: left;
+}
+
+/* Tasks Table */
+
+#searchable-table thead tr th.unsorted {
+   /* background-color: blue;*/
+}
+
+#searchable-table thead tr th.sorted {
+    
+}
+
+#searchable-table thead tr th.reverse-sorted {
+
 }
 
 /*Footer*/
