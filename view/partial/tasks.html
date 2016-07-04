@@ -31,17 +31,10 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 		event.originalEvent.dropdown = true;
 
 	});
+
 </script>
+
 <style>
-	.edit {
-
-	}
-	.delete{
-
-	}
-	.edit{
-
-	}
 	.button {
 		color: #696969;
 		padding-right: 5px;
@@ -57,30 +50,9 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 		-moz-osx-font-smoothing: grayscale;
 		transform: translate(0, 0);
 	}
-
 </style>
+
 <ul class="list-unstyled clearfix crunch-bottom">
-	<!--
-	<li class="col-md-2 col-sm-6 task-card add-task">
-		{{#if readonly}}
-         <span class="well task-card-link crunch-bottom">
-            <p class="h3 crunch">Add new URL</p>
-            <p class="supersize-me crunch">+</p>
-         </span>
-		{{else}}
-		{{#if tasks.0.client}}
-		<a class="well task-card-link crunch-bottom" data-role="add-task" href="/{{tasks.0.client}}/new" data-test="add-task">
-			<p class="h3 crunch">Add new URL</p>
-			<p class="supersize-me crunch">+</p>
-		</a>
-		{{else}}
-		<a class="well task-card-link crunch-bottom" data-role="add-task" href="/new" data-test="add-task">
-			<p class="h3 crunch">Add new URL</p>
-			<p class="supersize-me crunch">+</p>
-		</a>
-		{{/if}}
-		{{/if}}
-	</li>-->
 	<table id="searchable-table" name="searchable-table" class="searchable-table" style="width:100%">
 		<thead>
 			<tr>
@@ -116,32 +88,7 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 					{{/if}}
 
 					{{#unless ../readonly}}
-					<!--<td class="btn-group options-button text-right" style="width:3%;position: relative !important;">
-						<button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown"><span class="sr-only">Options</span><span class="glyphicon glyphicon-cog"></span></button>
-						<ul class="dropdown-menu pull-right" role="menu">
-							<li><a href="{{href}}/edit">Edit this task</a></li>
-							<li><a href="{{href}}/delete">Delete this task</a></li>
-							<li class="divider"></li>
-							<li><a href="{{href}}/run" data-test="run-task">Run pa11y</a></li>
-						</ul>
-					</td>-->
-					<!--
-					<td>
-						<button type="button" class="btn btn-default" ><a href="{{href}}/edit" style="color: white">Edit</a></button>
-					</td>
-					<td>
-						<button type="button" class="btn btn-default"><a href="{{href}}/delete" style="color: orangered">Delete</a></button>
-					</td>
-					<td>
-						<button type="button" class="btn btn-default"><a href="{{href}}/run" style="color: greenyellow">Run</a></button>
-					</td>
-					-->
-
-					<td><!--
-						<a href="{{href}}/edit"><i class="fa fa-pencil fa-lg"></i></a>
-						<i class="fa fa-trash fa-3x"></i>
-						<i class="edit fa"></i>-->
-
+						<td>
 							<div class="btn-group" role="group">
 								<div class="button">
 									<a class="btn btn-default" href="{{href}}/edit">
@@ -162,16 +109,10 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 									</a>
 								</div>
 							</div>
-
-					</td>
+						</td>
 					{{/unless}}
 				</tr>
 			{{/each}}
 		</tbody>
-		<!--
-		style="background-color:#5cb85c;border-color:#5cb85c;color: #fff"
-		style="background-color:#d9534f;border-color:#d9534f;color: #fff;"
-		style="background-color:#0275d8;border-color:#0275d8;color: #fff;"
-		-->
 	</table>
 </ul>

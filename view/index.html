@@ -25,21 +25,15 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
         <div class="" style="display: inline-block;width: 400px;text-align: center;vertical-align: super;">
             {{#if readonly}}
             <a class="btn btn-default" href="#">
-                <!-- <p class="h3 crunch">Add new URL</p>-->
-                <!--<p class="supersize-me crunch">+</p>-->
                 <i class="fa fa-plus fa"></i> Add Task
             </a>
             {{else}}
             {{#if tasks.0.client}}
             <a class="btn btn-default" data-role="add-task" href="/{{tasks.0.client}}/new" data-test="add-task">
-                <!-- <p class="h3 crunch">Add new URL</p>-->
-                 <!--<p class="supersize-me crunch">+</p>-->
                 <i class="fa fa-plus fa"></i> Add Task
              </a>
              {{else}}
-             <a class="btn btn-default" data-role="add-task" href="/new" data-test="add-task">
-                 <!--<p class="h3 crunch">Add new URL</p>-->
-                 <!--<p class="supersize-me crunch">+</p>-->
+             <a class="btn btn-default" data-role="add-task" href="/{{client}}/new" data-test="add-task">
                  <i class="fa fa-plus fa"></i> Add Task
              </a>
              {{/if}}
@@ -51,11 +45,6 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
                 <input class="form-control" id="task-filter" type="text" data-role="input" placeholder="Type filter term (name or standard)"/>
             </div>
          </div>
-        <!--<a class="btn btn-default" href="#"><i class="fa fa-plus fa-lg"></i> Add Task</a>-->
-
-       <!--<label for="filter-input" style="vertical-align: super;" class="filter-trigger" data-toggle="collapse" data-target="#filter-input">Filter<span class="glyphicon glyphicon-filter"></span>
-       </label>-->
-
      </div>
    </div>
 
