@@ -32,7 +32,33 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 
 	});
 </script>
+<style>
+	.edit {
 
+	}
+	.delete{
+
+	}
+	.edit{
+
+	}
+	.button {
+		color: #696969;
+		padding-right: 5px;
+		cursor: pointer;
+		float:left;
+	}
+	.fa {
+		display: inline-block;
+		font: normal normal normal 14px/1 FontAwesome;
+		font-size: inherit;
+		text-rendering: auto;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		transform: translate(0, 0);
+	}
+
+</style>
 <ul class="list-unstyled clearfix crunch-bottom">
 	<!--
 	<li class="col-md-2 col-sm-6 task-card add-task">
@@ -60,11 +86,11 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 			<tr>
 				<th onclick="sort_table(tasks, 0, asc1, event); asc1 *= -1; asc2 = 1; asc3 = 1; asc4 = 1; asc5 = 1; asc6 = 1;" class="unsorted" style="width:30%;">Page</th>
 				<th onclick="sort_table(tasks, 1, asc2, event); asc2 *= -1; asc3 = 1; asc4 = 1; asc5 = 1; asc6 = 1; asc1 = 1;" class="unsorted" style="width:17%;">Grade</th>
-				<th onclick="sort_table(tasks, 2, asc3, event); asc3 *= -1; asc4 = 1; asc5 = 1; asc6 = 1; asc1 = 1; asc2 = 1;" class="unsorted" style="width:10%;">Error</th>
-				<th onclick="sort_table(tasks, 3, asc4, event); asc4 *= -1; asc5 = 1; asc6 = 1; asc1 = 1; asc2 = 1; asc3 = 1;" class="unsorted" style="width:10%;">Warn</th>
-				<th onclick="sort_table(tasks, 4, asc5, event); asc5 *= -1; asc6 = 1; asc1 = 1; asc2 = 1; asc3 = 1; asc4 = 1;" class="unsorted" style="width:10%;">Info</th>
-				<th onclick="sort_table(tasks, 5, asc6, event); asc6 *= -1; asc1 = 1; asc2 = 1; asc3 = 1; asc4 = 1; asc5 = 1;" class="unsorted"  style="width:20%;">Last Run</th>
-				<th style="width:3%;"></th>
+				<th onclick="sort_table(tasks, 2, asc3, event); asc3 *= -1; asc4 = 1; asc5 = 1; asc6 = 1; asc1 = 1; asc2 = 1;" class="unsorted" style="width:7%;">Error</th>
+				<th onclick="sort_table(tasks, 3, asc4, event); asc4 *= -1; asc5 = 1; asc6 = 1; asc1 = 1; asc2 = 1; asc3 = 1;" class="unsorted" style="width:7%;">Warn</th>
+				<th onclick="sort_table(tasks, 4, asc5, event); asc5 *= -1; asc6 = 1; asc1 = 1; asc2 = 1; asc3 = 1; asc4 = 1;" class="unsorted" style="width:7%;">Info</th>
+				<th onclick="sort_table(tasks, 5, asc6, event); asc6 *= -1; asc1 = 1; asc2 = 1; asc3 = 1; asc4 = 1; asc5 = 1;" class="unsorted"  style="width:15%;">Last Run</th>
+				<th style="width:17%"></th>
 			</tr>
 		</thead>
 		<tbody id="tasks">
@@ -73,24 +99,24 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 
 				<tr task="{{href}}" class="row" data-test="task" data-role="task" data-keywords="{{lowercase name}} {{lowercase standard}} {{simplify-url url}}" >
 
-					<td style="width:30%;"><a class="" title="Details for URL {{simplify-url url}}" href="{{href}}">{{name}}</a></td>
-					<td style="width:17%;"><a class="" title="Details for URL {{simplify-url url}}" href="{{href}}">{{standard}}</a></td>
+					<td style=""><a class="" title="Details for URL {{simplify-url url}}" href="{{href}}">{{name}}</a></td>
+					<td style=""><a class="" title="Details for URL {{simplify-url url}}" href="{{href}}">{{standard}}</a></td>
 					{{#if lastResult}}
 					{{#lastResult}}
-					<td style="width:10%;" class="danger">{{count.error}}</td>
-					<td style="width:10%;" class="warning">{{count.warning}}</td>
-					<td style="width:10%;" class="info last">{{count.notice}}</td>
+					<td style="" class="danger">{{count.error}}</td>
+					<td style="" class="warning">{{count.warning}}</td>
+					<td style="" class="info last">{{count.notice}}</td>
 					{{/lastResult}}
-					<td style="width:20%;">{{date-format lastResult.date format="DD MMM YYYY"}}</td>
+					<td style="">{{date-format lastResult.date format="DD MMM YYYY"}}</td>
 					{{else}}
-					<td style="width:10%;">No results</td>
-					<td style="width:10%;">No results</td>
-					<td style="width:10%;">No results</td>
-					<td style="width:20%;">Not run</td>
+					<td style="">No results</td>
+					<td style="">No results</td>
+					<td style="">No results</td>
+					<td style="">Not run</td>
 					{{/if}}
 
 					{{#unless ../readonly}}
-					<td class="btn-group options-button text-right" style="width:3%;position: relative !important;">
+					<!--<td class="btn-group options-button text-right" style="width:3%;position: relative !important;">
 						<button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown"><span class="sr-only">Options</span><span class="glyphicon glyphicon-cog"></span></button>
 						<ul class="dropdown-menu pull-right" role="menu">
 							<li><a href="{{href}}/edit">Edit this task</a></li>
@@ -98,10 +124,54 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 							<li class="divider"></li>
 							<li><a href="{{href}}/run" data-test="run-task">Run pa11y</a></li>
 						</ul>
+					</td>-->
+					<!--
+					<td>
+						<button type="button" class="btn btn-default" ><a href="{{href}}/edit" style="color: white">Edit</a></button>
+					</td>
+					<td>
+						<button type="button" class="btn btn-default"><a href="{{href}}/delete" style="color: orangered">Delete</a></button>
+					</td>
+					<td>
+						<button type="button" class="btn btn-default"><a href="{{href}}/run" style="color: greenyellow">Run</a></button>
+					</td>
+					-->
+
+					<td><!--
+						<a href="{{href}}/edit"><i class="fa fa-pencil fa-lg"></i></a>
+						<i class="fa fa-trash fa-3x"></i>
+						<i class="edit fa"></i>-->
+
+							<div class="btn-group" role="group">
+								<div class="button">
+									<a class="btn btn-default" href="{{href}}/edit">
+										<i class="fa fa-pencil" aria-hidden="true" title="Edit Task"></i>
+										<span class="sr-only">Edit Task</span>
+									</a>
+								</div>
+								<div class="button">
+									<a class="btn btn-default" href="{{href}}/run">
+										<i class="fa fa-play-circle" aria-hidden="true" title="Run Task"></i>
+										<span class="sr-only">Run Task</span>
+									</a>
+								</div>
+								<div class="button">
+									<a class="btn btn-default" href="{{href}}/delete">
+										<i class="fa fa-trash-o" title="Delete" aria-hidden="true"></i>
+										<span class="sr-only">Delete</span>
+									</a>
+								</div>
+							</div>
+
 					</td>
 					{{/unless}}
 				</tr>
 			{{/each}}
 		</tbody>
+		<!--
+		style="background-color:#5cb85c;border-color:#5cb85c;color: #fff"
+		style="background-color:#d9534f;border-color:#d9534f;color: #fff;"
+		style="background-color:#0275d8;border-color:#0275d8;color: #fff;"
+		-->
 	</table>
 </ul>

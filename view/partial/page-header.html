@@ -16,11 +16,41 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 }}
 <header>
 	<div role="banner" class="header">
-		<div class="container">
+		<div class="container" style="background-color: #6c7878;">
 			{{#if isHomePage}}<h1>{{else}}<div class="h1">{{/if}}
 				<a href="/client/{{client}}">Accessibility Dashboard</a>
 				<!--<span class="h3">your automated accessibility testing pal</span>-->
 			{{#if isHomePage}}</h1>{{else}}</div>{{/if}}
+
+			<ol class="breadcrumb">
+				{{#if isNewTaskPage}}
+					{{#if client}}
+						<li><a href="/client/{{client}}">Dashboard</a></li>
+						<li class="active">Add URL</li>
+					{{else}}
+						<li><a href="/client/none">Dashboard</a></li>
+					{{/if}}
+				{{else}}
+					{{#if isHomePage}}
+						<li><a href="/client/{{client}}">Dashboard</a></li>
+					{{else}}
+						<li><a href="/client/{{task.client}}">Dashboard</a></li>
+					{{/if}}
+
+				{{/if}}
+				{{#if isTaskPage}}
+					<li class="active">{{task.name}}</li>
+				{{/if}}
+				{{#if isTaskSubPage}}
+					<li><a href="{{task.href}}">{{task.name}}</a></li>
+				{{/if}}
+				{{#if isResultPage}}
+					<li><a href="{{task.href}}">{{task.name}}</a></li>
+					<li class="active">Results for {{date-format mainResult.date format="DD MMM YYYY"}}</li>
+				{{/if}}
+			</ol>
+
 		</div>
+
 	</div>
 </header>

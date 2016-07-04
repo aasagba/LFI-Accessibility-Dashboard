@@ -22,8 +22,11 @@ module.exports = route;
 // Route definition
 function route (app) {
 
+	var clientid;
+
 	app.express.get('/:clientid/new', function (req, res) {
-		var id = req.params.clientid;
+		clientid = req.params.clientid;
+		console.log("clientid: " + clientid);
 
 		//console.log("In /clientid/new");
 		var standards = getStandards().map(function (standard) {
@@ -35,7 +38,7 @@ function route (app) {
 		res.render('new', {
 			standards: standards,
 			isNewTaskPage: true,
-			client: id
+			client: clientid
 		});
 	});
 
@@ -58,7 +61,7 @@ function route (app) {
 		var newTask = {
 			name: req.body.name,
 			url: req.body.url,
-			client: req.body.client,
+			client: clientid,
 			standard: req.body.standard,
 			ignore: req.body.ignore || [],
 			timeout: req.body.timeout,
