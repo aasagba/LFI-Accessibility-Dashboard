@@ -28,7 +28,8 @@
     "moment": "~2.2",
     "pa11y-webservice": "~1.7",
     "pa11y-webservice-client-node": "~1.1",
-    "underscore": "~1.5"
+    "underscore": "~1.5",
+    "util": "^0.10.3"
   },
   "devDependencies": {
     "bower": "~1.2",

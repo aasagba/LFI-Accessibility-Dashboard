@@ -108,13 +108,46 @@ function initApp (config, callback) {
 		/* jshint unused: false */
 		if (err.code === 'ECONNREFUSED') {
 			err = new Error('Could not connect to pa11y-webservice');
+			console.log(err.message);
 		}
 		app.emit('route-error', err);
 		if (process.env.NODE_ENV !== 'production') {
 			res.locals.error = err;
 		}
+		if (err.code === 'ECONNRESET') {
+			err = new Error('socket hang up');
+			req.emit(err);
+			req._hadError = true;
+			console.log("Server Closed!!");
+
+			// Close the server
+			app.server.close(function () { console.log('Server closed!'); });
+			app.server.unref();
+
+			// Destroy all open sockets
+			for (var socketId in sockets) {
+				console.log('socket', socketId, 'destroyed');
+				sockets[socketId].destroy();
+			}
+		}
 		res.status(500);
 		res.render('500');
+		exit();
+	});
+
+	// Maintain a hash of all connected sockets
+	var sockets = {}, nextSocketId = 0;
+	app.server.on('connection', function (socket) {
+		// Add a newly connected socket
+		var socketId = nextSocketId++;
+		sockets[socketId] = socket;
+		console.log("socket", socketId, 'opened');
+
+		// Remove socket when it closes
+		socket.on('close', function () {
+			console.log("socket", socketId, 'closed');
+			delete sockets[socketId];
+		});
 	});
 
 	app.server.listen(config.port, function (err) {
@@ -135,3 +168,10 @@ function defaultConfig (config) {
 	}
 	return config;
 }
+
+// forcefuly exit application
+var exit = function exit() {
+	setTimeout(function () {
+		process.exit(1);
+	}, 0);
+};

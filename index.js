@@ -23,6 +23,12 @@ process.on( 'SIGINT', function() {
     process.exit( );
 });
 
+process.on('uncaughtException', function (err) {
+	console.error(err.stack);
+	console.log("Node NOT Exiting...");
+	process.exit(1);
+});
+
 require('./app')(config, function (err, app) {
 
 	console.log('');
