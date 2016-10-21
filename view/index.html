@@ -19,7 +19,7 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 <div data-control="task-list">
 
   <div class="clearfix">
-      <div style="float:left;font-weight:bold">{{tasks.length}} Tasks</div>
+      <div style="float:left;font-weight:bold">Tasks {{skip}} - {{forward skip}}</div>
     <div class="col-md-6 col-md-offset-3 filter no-js-hide text-center">
 
         <div class="" style="display: inline-block;width: 515px;text-align: center;vertical-align: super;">
@@ -88,10 +88,12 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
    {{/deleted}}
 
    {{> tasks}}
+
+    {{#if loadPrevious}}
+    <a href="/client/{{client}}/results/{{back skip}}">Back |</a>
+    {{/if}}
     {{#if loadMore}}
     <a href="/client/{{client}}/results/{{forward skip}}">Load Next</a>
     {{/if}}
-    {{#if loadPrevious}}
-    <a href="/client/{{client}}/results/{{back skip}}">Back</a>
-    {{/if}}
+
  </div>
