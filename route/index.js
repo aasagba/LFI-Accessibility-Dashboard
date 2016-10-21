@@ -23,19 +23,98 @@ module.exports = route;
 function route (app) {
 	app.express.get('/client/:client', function (req, res, next) {
 		var client = req.params.client;
+
+
 		//console.log("client url param: " + client);
 
-		app.webservice.tasks.get({lastres: true, client: client}, function (err, tasks) {
+		app.webservice.tasks.get({lastres: true, client: client, skip: 0, searchTerm: " "}, function (err, tasks) {
 			if (err) {
 				return next(err);
 			}
+			var loadMore = tasks.length >= 100;
+			var loadPrevious = ((tasks.length - 100) - 100) > 0;
+
+			//console.log("Tasks returned from webservice: " + tasks.length);
+			//console.log("Loadmore: " + loadMore);
+			//console.log("Loadprevious: " + loadPrevious);
 
 			res.render('index', {
 				tasks: tasks.map(presentTask),
 				deleted: (typeof req.query.deleted !== 'undefined'),
 				isHomePage: true,
-				client: client
+				client: client,
+				skip: 0,
+				loadMore: loadMore,
+				loadPrevious: loadPrevious
+			});
+		});
+	});
+
+	// filter route
+	app.express.get('/client/:client/filter/:term', function (req, res, next) {
+		var client = req.params.client;
+		var searchTerm = req.params.term;
+
+		if(searchTerm === "") {searchTerm = " "}
+
+		//console.log("client url param: " + client);
+		//console.log("Search Term: " + searchTerm);
+
+		app.webservice.tasks.get({lastres: true, client: client, skip: 0, searchTerm: searchTerm}, function (err, tasks) {
+			if (err) {
+				return next(err);
+			}
+			var loadMore = tasks.length >= 100;
+			var loadPrevious = ((tasks.length - 100) - 100) > 0;
+
+			//console.log("Tasks returned from webservice: " + tasks.length);
+			//console.log("Loadmore: " + loadMore);
+			//console.log("Loadprevious: " + loadPrevious);
+
+			res.render('index', {
+				tasks: tasks.map(presentTask),
+				deleted: (typeof req.query.deleted !== 'undefined'),
+				isHomePage: true,
+				client: client,
+				skip: 0,
+				loadMore: loadMore,
+				loadPrevious: loadPrevious
+			});
+		});
+	});
+
+	app.express.get('/client/:client/results/:skip', function (req, res, next) {
+		var client = req.params.client;
+		var skip = parseInt(req.params.skip) || 0;
+
+		/*if (skip === 0) {
+			skip += 100;
+		}*/
+
+		//console.log("client url param: " + client);
+		//console.log("skip url param: " + skip);
+
+		app.webservice.tasks.get({lastres: true, client: client, skip: skip, searchTerm: " "}, function (err, tasks) {
+			if (err) {
+				return next(err);
+			}
+			//console.log("Tasks returned from webservice: " + tasks.length);
+			var loadMore = tasks.length >= 100;
+			var loadPrevious = (skip - 100) >= 0;
+			//console.log("Loadprevious: " + loadPrevious);
+
+			res.render('index', {
+				tasks: tasks.map(presentTask),
+				deleted: (typeof req.query.deleted !== 'undefined'),
+				isHomePage: true,
+				client: client,
+				skip: skip,
+				loadMore: loadMore,
+				loadPrevious: loadPrevious
 			});
 		});
 	});
 }
+
+
+

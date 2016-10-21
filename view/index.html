@@ -22,7 +22,7 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
       <div style="float:left;font-weight:bold">{{tasks.length}} Tasks</div>
     <div class="col-md-6 col-md-offset-3 filter no-js-hide text-center">
 
-        <div class="" style="display: inline-block;width: 400px;text-align: center;vertical-align: super;">
+        <div class="" style="display: inline-block;width: 515px;text-align: center;vertical-align: super;">
             {{#if readonly}}
             <a class="btn btn-default" href="#">
                 <i class="fa fa-plus fa"></i> Add Task
@@ -41,9 +41,28 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
             <a class="btn btn-default" href="#" for="filter-input" data-toggle="collapse" data-target="#filter-input">
                 <i class="fa fa-search fa"></i> Filter
             </a>
-            <div id="filter-input" class="collapse filter-input">
-                <input class="form-control" id="task-filter" type="text" data-role="input" placeholder="Type filter term (name or standard)"/>
-            </div>
+            <form id="search" action="">
+                <div id="filter-input" class="collapse filter-input">
+                    <!--<input class="form-control" id="task-filter" type="text" data-role="input" placeholder="Type filter term (name or standard)" />-->
+                    <input class="form-control search" id="filter" type="text" placeholder="Type filter term (name)" />
+                    <input type="button" id="btnSearch" class="btn btn-search" value="submit" />
+                    <a class="clear-filter" href="/client/{{client}}">Clear filter</a>
+                </div>
+                <div><p id="error" style="color:red; display: none; float: left; clear:both">Filter cannot be blank, please enter filter term</p></div>
+            </form>
+            <script type="text/javascript">
+                var button= document.getElementById('btnSearch');
+                button.onclick= function(){
+                    var text= document.getElementById('filter').value;
+                    if (text != "") {
+                        console.log("Search text: " + text);
+                        location.href='/client/{{client}}/filter/'+text;
+                    } else {
+                        document.getElementById('error').style.display = 'block';
+                        document.getElementById('filter').style.borderColor = 'red';
+                    }
+                }
+            </script>
          </div>
      </div>
    </div>
@@ -68,5 +87,10 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
    {{/deleted}}
 
    {{> tasks}}
-
+    {{#if loadMore}}
+    <a href="/client/{{client}}/results/{{forward skip}}">Load Next</a>
+    {{/if}}
+    {{#if loadPrevious}}
+    <a href="/client/{{client}}/results/{{back skip}}">Back</a>
+    {{/if}}
  </div>

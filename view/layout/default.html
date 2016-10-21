@@ -25,7 +25,7 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-	<link rel="icon" type="image/png" href="favicon.png" />
+	<!--<link rel="icon" type="image/png" href="favicon.png" />-->
 
 	<!-- For mobile devices. -->
 	<meta name="viewport" content="width=device-width"/>
@@ -38,13 +38,20 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 	<script type="text/javascript" src="/js/base.js"></script>
 	<script>
 		document.documentElement.className = document.documentElement.className.replace('no-javascript', 'javascript');
+
+		$body = $("body");
+
+		$(window).load(function() {
+			$('body').removeClass('loading');
+		});
+
 	</script>
 </head>
 <!--[if IE 7]><body class="ie7"><![endif]-->
 <!--[if IE 8]><body class="ie8"><![endif]-->
 <!--[if IE 9]><body class="ie9"><![endif]-->
 <!--[if !IE]>-->
-<body>
+<body class="loading">
 <!--<![endif]-->
 
 <script>
@@ -81,8 +88,10 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 
 	</div>
 
-	<!--{{> page-footer}}-->
 
+	<!--{{> page-footer}}-->
+		<div class="modal" id="modal"><!-- Place at bottom of page --></div>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script type="text/javascript" src="/js/site.min.js?v={{version}}"></script>
 	<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="/js/vendor/flot/excanvas.min.js"></script><![endif]-->
 
