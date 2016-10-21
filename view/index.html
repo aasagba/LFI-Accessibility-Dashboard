@@ -56,7 +56,8 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
                     var text= document.getElementById('filter').value;
                     if (text != "") {
                         console.log("Search text: " + text);
-                        location.href='/client/{{client}}/filter/'+text;
+                        var url = encodeURI('/client/{{client}}/filter/'+text)
+                        location.href=url;
                     } else {
                         document.getElementById('error').style.display = 'block';
                         document.getElementById('filter').style.borderColor = 'red';
