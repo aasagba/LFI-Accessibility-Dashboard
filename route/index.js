@@ -31,12 +31,14 @@ function route (app) {
 			if (err) {
 				return next(err);
 			}
+			//console.log("tasks: " + JSON.stringify(tasks));
 			var loadMore = tasks.length >= 100;
 			var loadPrevious = ((tasks.length - 100) - 100) > 0;
 
 			//console.log("Tasks returned from webservice: " + tasks.length);
 			//console.log("Loadmore: " + loadMore);
 			//console.log("Loadprevious: " + loadPrevious);
+			//console.log("map tasks: " + JSON.stringify(tasks));
 
 			res.render('index', {
 				tasks: tasks.map(presentTask),
