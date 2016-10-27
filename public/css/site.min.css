@@ -4007,7 +4007,7 @@ textarea.input-group-sm>.input-group-btn>.btn {
 }
 .breadcrumb {
     padding: 8px 15px;
-    margin-bottom: 21px;
+    /*margin-bottom: 21px;*/
     list-style: none;
     background-color: #6c7878;
     border-radius: 3px;
