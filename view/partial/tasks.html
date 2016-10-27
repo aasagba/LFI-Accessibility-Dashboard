@@ -75,9 +75,9 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 					<td style=""><a class="" title="Details for URL {{simplify-url url}}" href="{{href}}">{{standard}}</a></td>
 					{{#if lastResult}}
 					{{#lastResult}}
-					<td style="" class="danger">{{count.error}}</td>
-					<td style="" class="warning">{{count.warning}}</td>
-					<td style="" class="info last">{{count.notice}}</td>
+					<td style="" class="danger scores">{{count.error}}</td>
+					<td style="" class="warning scores">{{count.warning}}</td>
+					<td style="" class="info last scores">{{count.notice}}</td>
 					{{/lastResult}}
 					<td style="">{{date-format lastResult.date format="DD MMM YYYY"}}</td>
 					{{else}}
