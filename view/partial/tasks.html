@@ -81,10 +81,10 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 					{{/lastResult}}
 					<td style="">{{date-format lastResult.date format="DD MMM YYYY"}}</td>
 					{{else}}
-					<td style="">No results</td>
-					<td style="">No results</td>
-					<td style="">No results</td>
-					<td style="">Not run</td>
+					<td style="color: lightgray;">No results</td>
+					<td style="color: lightgray;">No results</td>
+					<td style="color: lightgray;">No results</td>
+					<td style="color: lightgray;">Not run</td>
 					{{/if}}
 
 					{{#unless ../readonly}}

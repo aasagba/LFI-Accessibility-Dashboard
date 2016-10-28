@@ -659,10 +659,10 @@ pre code {
     margin-left: -15px;
     margin-right: -15px;
 }
-/*
-.row:before,
-.row:after {
 
+.aside .row:before,
+.aside .row:after {
+    content: " ";
     display: table
 }
 .row:after {
@@ -676,7 +676,7 @@ pre code {
 .row:after {
     clear: both
 }
-*/
+
 .col-xs-1,
 .col-xs-2,
 .col-xs-3,
@@ -813,7 +813,7 @@ pre code {
         width: 41.66666666666667%
     }
     .col-sm-6 {
-        width: 50%
+        width: 100%
     }
     .col-sm-7 {
         width: 58.333333333333336%
@@ -4006,10 +4006,11 @@ textarea.input-group-sm>.input-group-btn>.btn {
     color: #2c3e50
 }
 .breadcrumb {
-    padding: 8px 15px;
+    padding: 10px 0px;
     /*margin-bottom: 21px;*/
     list-style: none;
-    background-color: #6c7878;
+    /*background-color: #6c7878;*/
+    color:
     border-radius: 3px;
     /*border: 1px dotted #889aa5;*/
 
@@ -4028,7 +4029,7 @@ textarea.input-group-sm>.input-group-btn>.btn {
     color: white;
 }
 .breadcrumb li a {
-    color: white;
+    color: #6c7878;
 }
 .pager {
     padding-left: 0;
@@ -5355,7 +5356,7 @@ input[type=color]:focus,
     padding: 15px
 }
 .header {
-    padding-bottom: 15px;
+    /*padding-bottom: 15px;*/
     background-color: #fff;
 }
 .footer {
@@ -5449,7 +5450,7 @@ input[type=color]:focus,
     display: block;
     padding: 7px 0 6px;
     text-align: center;
-    color: #fff
+    /*color: #fff*/
 }
 .task-stats li.last {
     margin-right: 0
@@ -5461,7 +5462,7 @@ input[type=color]:focus,
     line-height: 1.4;
     opacity: .8;
     filter: alpha(opacity=80);
-    color: #FFF;
+    /*color: #FFF;*/
 }
 .aside .task-stats li:hover {
     opacity: .85;
@@ -5474,19 +5475,25 @@ input[type=color]:focus,
     font-size: 16px;
     font-weight: bold;
 }
+.task-stats li.danger a  {
+    color:red
+}
+.task-stats li.warning a  {
+    color:rgb(255, 102, 0);
+}
+.task-stats li.info a  {
+    color:green
+}
 .danger,
 .error {
     color: red;
-    background-color: #fff
 }
 .warning {
     color: rgb(255, 102, 0);
-    background-color: #fff
 }
 .info,
 .notice {
     color: green;
-    background-color: #fff;
 }
 .task-card {
     margin-bottom: 20px
@@ -5664,7 +5671,7 @@ ul.date-links {
 }
 .graph-spacer {
     margin-bottom: 30px;
-    padding-bottom: 30px
+    /*padding-bottom: 30px*/
 }
 .graph-table {
     margin-bottom: 0
@@ -6425,7 +6432,7 @@ ul.sub-menu:hover{
 
 span {
     font-size: 16px;
-    color: #666;
+    /*color: #666;*/
     display: inline-block;
     /*vertical-align: middle;*/
 }
