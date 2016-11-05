@@ -5546,7 +5546,7 @@ input[type=color]:focus,
     padding: 6px
 }
 .task-header {
-    margin-bottom: 30px
+    margin-bottom: 15px
 }
 .task-header h1 {
     margin-bottom: 6px
@@ -6443,7 +6443,7 @@ span {
     border-radius: 3px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
-    border: 1px dotted #889aa5;
+    /*border: 1px dotted #889aa5;*/
 }
 
 .top-section {

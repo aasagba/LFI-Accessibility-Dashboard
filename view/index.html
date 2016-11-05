@@ -103,12 +103,12 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
    {{/deleted}}
 
    {{> tasks}}
-
+    <span style="margin: 0 auto;padding: 20px;width: auto;border: 1px #f1efef solid;margin-top: 20px;display: table;">
     {{#if loadPrevious}}
-    <a href="/client/{{client}}/results/{{back skip}}">Back |</a>
+    <a href="/client/{{client}}/results/{{back skip}}" class="btn btn-default" style="margin-right: 5px;">Back</a>
     {{/if}}
     {{#if loadMore}}
-    <a href="/client/{{client}}/results/{{forward skip}}">Load Next</a>
+    <a href="/client/{{client}}/results/{{forward skip}}" class="btn btn-default">Load Next</a>
     {{/if}}
-
+    </span>
  </div>

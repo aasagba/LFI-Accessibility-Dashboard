@@ -24,6 +24,7 @@ function route (app) {
 		console.log("request in run.js: " + req.params.id);
 		app.webservice.task(req.params.id).run(function (err, task) {
 			if (err) {
+				console.log(err);
 				return next();
 			}
 			res.redirect('/' + req.params.id + '?running');
