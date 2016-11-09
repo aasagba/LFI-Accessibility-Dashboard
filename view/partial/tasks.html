@@ -54,7 +54,7 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 
 <ul class="list-unstyled clearfix crunch-bottom">
 	<table id="searchable-table" name="searchable-table" class="searchable-table" style="width:100%">
-		<thead>
+		<thead><!--
 			<tr>
 				<th onclick="sort_table(tasks, 0, asc1, event); asc1 *= -1; asc2 = 1; asc3 = 1; asc4 = 1; asc5 = 1; asc6 = 1;" class="unsorted" style="width:30%;">Page</th>
 				<th onclick="sort_table(tasks, 1, asc2, event); asc2 *= -1; asc3 = 1; asc4 = 1; asc5 = 1; asc6 = 1; asc1 = 1;" class="unsorted" style="width:17%;">Grade</th>
@@ -62,6 +62,15 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 				<th onclick="sort_table(tasks, 3, asc4, event); asc4 *= -1; asc5 = 1; asc6 = 1; asc1 = 1; asc2 = 1; asc3 = 1;" class="unsorted" style="width:7%;">Warn</th>
 				<th onclick="sort_table(tasks, 4, asc5, event); asc5 *= -1; asc6 = 1; asc1 = 1; asc2 = 1; asc3 = 1; asc4 = 1;" class="unsorted" style="width:7%;">Info</th>
 				<th onclick="sort_table(tasks, 5, asc6, event); asc6 *= -1; asc1 = 1; asc2 = 1; asc3 = 1; asc4 = 1; asc5 = 1;" class="unsorted"  style="width:15%;">Last Run</th>
+				<th style="width:17%"></th>
+			</tr>-->
+			<tr>
+				<th class="unsorted" style="width:30%;"><a href="/client/{{client}}/sort/name">Page</a></th>
+				<th style="width:17%;">Grade</th>
+				<th style="width:7%;"><a href="/client/{{client}}/sort/error">Error</a></th>
+				<th style="width:7%;">Warn</th>
+				<th style="width:7%;">Info</th>
+				<th style="width:7%;">Last Run</th>
 				<th style="width:17%"></th>
 			</tr>
 		</thead>
@@ -116,3 +125,7 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 		</tbody>
 	</table>
 </ul>
+
+<script>
+	//console.log("{{alltasks.length}}");
+</script>
