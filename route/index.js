@@ -25,6 +25,10 @@ function route (app) {
 	//var model = app.model;
 	var allTasks = [];
 	var allTaskCount = 0;
+	var sortAsc = false;
+	var sortAscError = true;
+	var sortAscWarn = true;
+	var sortAscNotice = true;
 
 	var getResultById = function (task,index) {
 		//console.log("in getResultById");
@@ -38,7 +42,7 @@ function route (app) {
 				}
 
 				if (results) {
-					console.log("results returned: " + JSON.stringify(results));
+					//console.log("results returned: " + JSON.stringify(results));
 					task.last_result = results[0];
 				}
 
@@ -50,9 +54,7 @@ function route (app) {
 	app.express.get('/client/:client', function (req, res, next) {
 		var client = req.params.client;
 
-
 		//console.log("client url param: " + client);
-
 		app.webservice.tasks.get({lastres: true, client: client, skip: 0, searchTerm: " "}, function (err, tasks) {
 			if (err) {
 				return next(err);
@@ -63,35 +65,135 @@ function route (app) {
 			allTasks = tasks;
 			allTaskCount = allTasks.length;
 
-			// *** TEST loop tasks and get results for first 100
-			// get all tasks but results for first 100
-				var currentTasks = tasks.slice(0,100);
-				console.log("tasks length: " + tasks.length);
-				currentTasks = currentTasks.map(getResultById);
+			console.log("tasks length: " + tasks.length);
+			allTasks = allTasks.map(getResultById);
 
-
-				Promise.all(currentTasks).then(function (currentTasks) {
-					res.render('index', {
-						tasks: currentTasks.map(presentTask),
-						taskCount: allTaskCount,
-						deleted: (typeof req.query.deleted !== 'undefined'),
-						isHomePage: true,
-						client: client,
-						skip: 0,
-						loadMore: loadMore,
-						loadPrevious: loadPrevious
-					});
+			Promise.all(allTasks).then(function (allTasks) {
+				//console.log("allTasks: " + JSON.stringify(allTasks));
+				res.render('index', {
+					tasks: allTasks.slice(0,100).map(presentTask),
+					taskCount: allTaskCount,
+					deleted: (typeof req.query.deleted !== 'undefined'),
+					isHomePage: true,
+					client: client,
+					skip: 0,
+					loadMore: loadMore,
+					loadPrevious: loadPrevious
 				});
+			});
+		});
+	});
 
-			// *** TEST loop task and get results
+	app.express.get('/client/:client/sort/:column', function (req, res, next) {
+		var client = req.params.client;
+		var column = req.params.column;
+		var sortedTasks = [];
 
-			//console.log("Tasks returned from webservice: " + tasks.length);
-			//console.log("Loadmore: " + loadMore);
-			//console.log("Loadprevious: " + loadPrevious);
-			//console.log("map tasks: " + JSON.stringify(tasks));
-			/*
+		switch (column) {
+			case "name":
+
+				console.log("Sort by name");
+				if(sortAsc){
+					console.log("sort ascending: " + sortAsc);
+					allTasks = _.sortBy(allTasks, function (task) {
+						if (task._result != undefined) {
+							return task._result.name;
+						}
+					});
+					sortAsc = false;
+				} else {
+					console.log("sort descending: " + sortAsc);
+					allTasks = _.sortBy(allTasks, function (task) {
+						if (task._result != undefined) {
+							return task._result.name;
+						}
+					}).reverse();
+					sortAsc = true;
+				}
+
+				break;
+			case "error":
+
+				console.log("sortby error");
+
+				if(sortAscError) {
+					allTasks = _.sortBy(allTasks, function (task) {
+						console.log("sortby task: " + JSON.stringify(task));
+						if (task._result.lastResult != undefined) {
+							console.log("sortby error 1: " + task._result.lastResult.count.error);
+							return parseInt(task._result.lastResult.count.error,10);
+						}
+
+						if (task._result.last_result != undefined) {
+							console.log("sortby error 2: " + task._result.last_result.count.error);
+							return parseInt(task._result.last_result.count.error,10);
+						}
+					});
+					sortAscError = false;
+				} else {
+					allTasks = allTasks.reverse();
+				}
+
+				break;
+			case "warning":
+
+				console.log("sortby warning");
+
+				if(sortAscWarn) {
+					allTasks = _.sortBy(allTasks, function (task) {
+						console.log("sortby task: " + JSON.stringify(task));
+						if (task._result.lastResult != undefined) {
+							console.log("sortby error 1: " + task._result.lastResult.count.warning);
+							return parseInt(task._result.lastResult.count.warning,10);
+						}
+
+						if (task._result.last_result != undefined) {
+							console.log("sortby error 2: " + task._result.last_result.count.warning);
+							return parseInt(task._result.last_result.count.warning,10);
+						}
+					});
+					sortAscWarn = false;
+				} else {
+					allTasks = allTasks.reverse();
+				}
+
+				break;
+			case "notice":
+
+				console.log("sortby notice");
+
+				if(sortAscNotice) {
+					allTasks = _.sortBy(allTasks, function (task) {
+						console.log("sortby task: " + JSON.stringify(task));
+						if (task._result.lastResult != undefined) {
+							console.log("sortby error 1: " + task._result.lastResult.count.notice);
+							return parseInt(task._result.lastResult.count.notice,10);
+						}
+
+						if (task._result.last_result != undefined) {
+							console.log("sortby error 2: " + task._result.last_result.count.notice);
+							return parseInt(task._result.last_result.count.notice,10);
+						}
+					});
+					sortAscNotice = false;
+				} else {
+					allTasks = allTasks.reverse();
+				}
+
+				break;
+			default:
+				console.log("Error filter " + column + " does not exist!");
+		}
+
+		Promise.all(allTasks).then(function (allTasks) {
+
+			var loadMore = allTasks.length >= 100;
+			var loadPrevious = ((allTasks.length - 100) - 100) > 0;
+			sortedTasks = allTasks.slice(0,100);
+
 			res.render('index', {
-				tasks: tasks.map(presentTask),
+				tasks: sortedTasks.map(presentTask),
+				taskCount: allTaskCount,
 				deleted: (typeof req.query.deleted !== 'undefined'),
 				isHomePage: true,
 				client: client,
@@ -99,39 +201,6 @@ function route (app) {
 				loadMore: loadMore,
 				loadPrevious: loadPrevious
 			});
-			*/
-		});
-	});
-
-	app.express.get('/client/:client/sort/:column', function (req, res, next) {
-		var client = req.params.client;
-		var column = req.params.column;
-
-		if (column == "name") {
-			var sortedTasks = _.sortBy(allTasks, column);
-			sortedTasks.reverse();
-		} else if (column == "error") {
-			console.log("sortby error");
-			var sortedTasks = _.sortBy(allTasks, function (task) {
-				if (task.count != undefined) {
-					console.log("sortby error: " + task.count.error);
-					return parseInt(task.count.error);
-				}
-			});
-		}
-
-		var loadMore = sortedTasks.length >= 100;
-		var loadPrevious = ((sortedTasks.length - 100) - 100) > 0;
-
-		res.render('index', {
-			tasks: sortedTasks.map(presentTask),
-			taskCount: allTaskCount,
-			deleted: (typeof req.query.deleted !== 'undefined'),
-			isHomePage: true,
-			client: client,
-			skip: 0,
-			loadMore: loadMore,
-			loadPrevious: loadPrevious
 		});
 	});
 
@@ -149,7 +218,7 @@ function route (app) {
 		var filtered = _.filter(allTasks, function(task, index) {
 			console.log("task: " + JSON.stringify(task));
 
-			if (task.name !== undefined && task.name.toLowerCase().match(searchTerm.toLowerCase())) {
+			if (task._result.name !== undefined && task._result.name.toLowerCase().match(searchTerm.toLowerCase())) {
 				console.log("contains");
 				return task;
 			}
@@ -182,30 +251,6 @@ function route (app) {
 				loadPrevious: loadPrevious
 			});
 		});
-		// TEST filter allTasks array
-
-		/*
-		app.webservice.tasks.get({lastres: true, client: client, skip: 0, searchTerm: searchTerm}, function (err, tasks) {
-			if (err) {
-				return next(err);
-			}
-			var loadMore = tasks.length >= 100;
-			var loadPrevious = ((tasks.length - 100) - 100) > 0;
-
-			//console.log("Tasks returned from webservice: " + tasks.length);
-			//console.log("Loadmore: " + loadMore);
-			//console.log("Loadprevious: " + loadPrevious);
-
-			res.render('index', {
-				tasks: tasks.map(presentTask),
-				deleted: (typeof req.query.deleted !== 'undefined'),
-				isHomePage: true,
-				client: client,
-				skip: 0,
-				loadMore: loadMore,
-				loadPrevious: loadPrevious
-			});
-		});*/
 	});
 
 	app.express.get('/client/:client/results/:skip', function (req, res, next) {
@@ -214,7 +259,7 @@ function route (app) {
 
 		var currentTasks = allTasks.slice(skip, skip + 100);
 		//console.log("tasks length: " + tasks.length);
-		currentTasks = currentTasks.map(getResultById);
+		//currentTasks = currentTasks.map(getResultById);
 		console.log("allTasks in skip: " + allTasks.length);
 
 		var loadMore = currentTasks.length >= 100;
@@ -232,33 +277,6 @@ function route (app) {
 				loadPrevious: loadPrevious
 			});
 		});
-
-		/*if (skip === 0) {
-			skip += 100;
-		}*/
-
-		//console.log("client url param: " + client);
-		//console.log("skip url param: " + skip);
-
-		/*app.webservice.tasks.get({lastres: true, client: client, skip: skip, searchTerm: " "}, function (err, tasks) {
-			if (err) {
-				return next(err);
-			}
-			//console.log("Tasks returned from webservice: " + tasks.length);
-			var loadMore = tasks.length >= 100;
-			var loadPrevious = (skip - 100) >= 0;
-			//console.log("Loadprevious: " + loadPrevious);
-
-			res.render('index', {
-				tasks: tasks.map(presentTask),
-				deleted: (typeof req.query.deleted !== 'undefined'),
-				isHomePage: true,
-				client: client,
-				skip: skip,
-				loadMore: loadMore,
-				loadPrevious: loadPrevious
-			});
-		});*/
 	});
 }
 
