@@ -34,7 +34,7 @@ function route (app) {
 		//console.log("in getResultById");
 		return new Promise(function(resolve, reject) {
 			//model.result.getByTaskId(task.id, {}, function (err, results) {
-			app.webservice.task(task.id).results({}, function (err, results) {
+			app.webservice.task(task.id).homeresults({}, function (err, results) {
 				//console.log("model.result.getByTaskId");
 
 				if (err || !results) {
