@@ -26,6 +26,7 @@ function route (app) {
 	var allTasks = [];
 	var sortedTasks = new Array();
 	var allTaskCount = 0;
+	var filteredTaskCount = 0;
 	var sortAsc = false;
 	var sortAscError = true;
 	var sortAscWarn = true;
@@ -247,6 +248,7 @@ function route (app) {
 			sortedTasks = allTasks;
 			var slice = [];
 			slice = allTasks.slice(0,100);
+			allTaskCount = sortedTasks.length;
 
 			res.render('index', {
 				tasks: slice.map(presentTask),
@@ -297,6 +299,7 @@ function route (app) {
 
 			// store filtered in global array
 			sortedTasks = filtered;
+			allTaskCount = sortedTasks.length;
 
 			// render first 100 filtered results
 			var filtered = filtered.slice(0,100);
