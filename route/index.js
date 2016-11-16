@@ -31,6 +31,10 @@ function route (app) {
 	var sortAscError = true;
 	var sortAscWarn = true;
 	var sortAscNotice = true;
+	var nameSortDirection = "fa-sort";
+	var errorSortDirection = "fa-sort";
+	var warnSortDirection = "fa-sort";
+	var infoSortDirection = "fa-sort";
 
 	var getResultById = function (task,index) {
 		//console.log("in getResultById");
@@ -60,24 +64,31 @@ function route (app) {
 		sortAscError = true;
 		sortAscNotice = true;
 		sortAscWarn = true;
+		nameSortDirection = "fa-sort";
+		errorSortDirection = "fa-sort";
+		warnSortDirection = "fa-sort";
+		infoSortDirection = "fa-sort";
 
 		//console.log("client url param: " + client);
 		app.webservice.tasks.get({lastres: true, client: client, skip: 0, searchTerm: " "}, function (err, tasks) {
 			if (err) {
 				return next(err);
 			}
+			var skip = req.params.skip;
+
 			//console.log("tasks: " + JSON.stringify(tasks));
 			var loadMore = tasks.length >= 100;
-			var loadPrevious = ((tasks.length - 100) - 100) > 0;
+			//var loadPrevious = ((tasks.length - 100) - 100) > 0;
+			var loadPrevious = false;
 			allTasks = tasks.slice();
 			allTaskCount = allTasks.length;
 
-			console.log("tasks length: " + tasks.length);
+			//console.log("tasks length: " + tasks.length);
 			allTasks = allTasks.map(getResultById);
 
 
 			Promise.all(allTasks).then(function (allTasks) {
-				console.log("\n\nallTasks: " + JSON.stringify(allTasks)+"\n\n");
+				//console.log("\n\nallTasks: " + JSON.stringify(allTasks)+"\n\n");
 				sortedTasks = allTasks.slice();
 
 				res.render('index', {
@@ -88,7 +99,11 @@ function route (app) {
 					client: client,
 					skip: 0,
 					loadMore: loadMore,
-					loadPrevious: loadPrevious
+					loadPrevious: loadPrevious,
+					nameSortDirection: nameSortDirection,
+					errorSortDirection: errorSortDirection,
+					warnSortDirection: warnSortDirection,
+					infoSortDirection: infoSortDirection
 				});
 			});
 		});
@@ -124,6 +139,8 @@ function route (app) {
 					sortAsc = true;
 				}
 
+				nameSortDirection = sortAsc ? 'fa-sort-desc' : 'fa-sort-asc';
+
 				break;
 			case "error":
 
@@ -135,22 +152,22 @@ function route (app) {
 
 						if(task._result != undefined) {
 							if (task._result.lastResult != undefined) {
-								console.log("sortby error 1: " + task._result.lastResult.count.error);
+								//console.log("sortby error 1: " + task._result.lastResult.count.error);
 								return parseInt(task._result.lastResult.count.error, 10);
 							}
 
 							if (task._result.last_result != undefined) {
-								console.log("sortby error 2: " + task._result.last_result.count.error);
+								//console.log("sortby error 2: " + task._result.last_result.count.error);
 								return parseInt(task._result.last_result.count.error, 10);
 							}
 						} else {
 							if (task.lastResult != undefined) {
-								console.log("sortby error 1: " + task.lastResult.count.error);
+								//console.log("sortby error 1: " + task.lastResult.count.error);
 								return parseInt(task.lastResult.count.error,10);
 							}
 
 							if (task.last_result != undefined) {
-								console.log("sortby error 2: " + task.last_result.count.error);
+								//console.log("sortby error 2: " + task.last_result.count.error);
 								return parseInt(task.last_result.count.error,10);
 							}
 						}
@@ -160,6 +177,8 @@ function route (app) {
 					allTasks = allTasks.reverse();
 					sortAscError = true;
 				}
+
+				errorSortDirection = sortAscError ? 'fa-sort-desc' : 'fa-sort-asc';
 
 				break;
 			case "warning":
@@ -172,22 +191,22 @@ function route (app) {
 
 						if(task._result != undefined) {
 							if (task._result.lastResult != undefined) {
-								console.log("sortby error 1: " + task._result.lastResult.count.warning);
+								//console.log("sortby error 1: " + task._result.lastResult.count.warning);
 								return parseInt(task._result.lastResult.count.warning,10);
 							}
 
 							if (task._result.last_result != undefined) {
-								console.log("sortby error 2: " + task._result.last_result.count.warning);
+								//console.log("sortby error 2: " + task._result.last_result.count.warning);
 								return parseInt(task._result.last_result.count.warning,10);
 							}
 						} else {
 							if (task.lastResult != undefined) {
-								console.log("sortby error 1: " + task.lastResult.count.warning);
+								//console.log("sortby error 1: " + task.lastResult.count.warning);
 								return parseInt(task.lastResult.count.warning,10);
 							}
 
 							if (task.last_result != undefined) {
-								console.log("sortby error 2: " + task.last_result.count.warning);
+								//console.log("sortby error 2: " + task.last_result.count.warning);
 								return parseInt(task.last_result.count.warning,10);
 							}
 						}
@@ -197,6 +216,8 @@ function route (app) {
 					allTasks = allTasks.reverse();
 					sortAscWarn = true;
 				}
+
+				warnSortDirection = sortAscWarn ? 'fa-sort-desc' : 'fa-sort-asc';
 
 				break;
 			case "notice":
@@ -209,22 +230,22 @@ function route (app) {
 
 						if(task._result != undefined) {
 							if (task._result.lastResult != undefined) {
-								console.log("sortby error 1: " + task._result.lastResult.count.notice);
+								//console.log("sortby error 1: " + task._result.lastResult.count.notice);
 								return parseInt(task._result.lastResult.count.notice, 10);
 							}
 
 							if (task._result.last_result != undefined) {
-								console.log("sortby error 2: " + task._result.last_result.count.notice);
+								//console.log("sortby error 2: " + task._result.last_result.count.notice);
 								return parseInt(task._result.last_result.count.notice, 10);
 							}
 						} else {
 							if (task.lastResult != undefined) {
-								console.log("sortby error 1: " + task.lastResult.count.notice);
+								//console.log("sortby error 1: " + task.lastResult.count.notice);
 								return parseInt(task.lastResult.count.notice, 10);
 							}
 
 							if (task.last_result != undefined) {
-								console.log("sortby error 2: " + task.last_result.count.notice);
+								//console.log("sortby error 2: " + task.last_result.count.notice);
 								return parseInt(task.last_result.count.notice, 10);
 							}
 						}
@@ -235,6 +256,8 @@ function route (app) {
 					allTasks = allTasks.reverse();
 					sortAscNotice = true;
 				}
+
+				infoSortDirection = sortAscNotice ? 'fa-sort-desc' : 'fa-sort-asc';
 
 				break;
 			default:
@@ -258,7 +281,11 @@ function route (app) {
 				client: client,
 				skip: 0,
 				loadMore: loadMore,
-				loadPrevious: loadPrevious
+				loadPrevious: loadPrevious,
+				nameSortDirection: nameSortDirection,
+				errorSortDirection: errorSortDirection,
+				warnSortDirection: warnSortDirection,
+				infoSortDirection: infoSortDirection
 			});
 		});
 	});
@@ -275,22 +302,22 @@ function route (app) {
 
 		// TEST filter allTasks array
 		var filtered = _.filter(sortedTasks, function(task, index) {
-			console.log("task: " + JSON.stringify(task));
+			//console.log("task: " + JSON.stringify(task));
 
 			if (task._result !== undefined && task._result.name.toLowerCase().match(searchTerm.toLowerCase())) {
-				console.log("contains");
+				//console.log("contains");
 				return task;
 			} else if (task.name !== undefined && task.name.toLowerCase().match(searchTerm.toLowerCase())) {
-				console.log("contains");
+				//console.log("contains");
 				return task;
 			}
 		});
 
-		console.log("allTasks: " + allTasks.length);
-		console.log("filtered: " + JSON.stringify(filtered));
-		console.log("filtered length: " + filtered.length);
+		//console.log("allTasks: " + allTasks.length);
+		//console.log("filtered: " + JSON.stringify(filtered));
+		//console.log("filtered length: " + filtered.length);
 		//filtered = filtered.map(getResultById);
-		console.log("filtered and results: " + JSON.stringify(filtered));
+		//console.log("filtered and results: " + JSON.stringify(filtered));
 
 		var loadMore = filtered.length >= 100;
 		var loadPrevious = ((filtered.length - 100) - 100) > 0;
@@ -312,7 +339,11 @@ function route (app) {
 				client: client,
 				skip: 0,
 				loadMore: loadMore,
-				loadPrevious: loadPrevious
+				loadPrevious: loadPrevious,
+				nameSortDirection: nameSortDirection,
+				errorSortDirection: errorSortDirection,
+				warnSortDirection: warnSortDirection,
+				infoSortDirection: infoSortDirection
 			});
 		});
 	});
@@ -324,7 +355,7 @@ function route (app) {
 		var currentTasks = sortedTasks.slice(skip, skip + 100);
 		//console.log("tasks length: " + tasks.length);
 		//currentTasks = currentTasks.map(getResultById);
-		console.log("allTasks in skip: " + sortedTasks.length);
+		//console.log("allTasks in skip: " + sortedTasks.length);
 
 		var loadMore = currentTasks.length >= 100;
 		var loadPrevious = (skip - 100) >= 0;
@@ -338,7 +369,11 @@ function route (app) {
 				client: client,
 				skip: skip,
 				loadMore: loadMore,
-				loadPrevious: loadPrevious
+				loadPrevious: loadPrevious,
+				nameSortDirection: nameSortDirection,
+				errorSortDirection: errorSortDirection,
+				warnSortDirection: warnSortDirection,
+				infoSortDirection: infoSortDirection
 			});
 		});
 	});

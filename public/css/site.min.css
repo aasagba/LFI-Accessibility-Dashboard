@@ -1554,6 +1554,15 @@ output {
     display: block;
    /* line-height: 2.428571;*/
     padding: 10px 15px;
+    background-color: #9fbeda;
+    border-radius: 36px;
+    -moz-border-radius: 36px;
+    -webkit-border-radius: 36px;
+    color: white;
+    margin-left: 5px;
+}
+.filter-input a.clear-filter:hover {
+    background-color: #587d9e;
 }
 .form-control {
     display: block;
@@ -6636,6 +6645,26 @@ span.divider {
 
 /* Tasks Table */
 
+.fa-sort:before, .fa-sort-asc, .fa-sort-desc {
+    padding-left: 5px;
+}
+.fa {
+    font: normal normal normal 15px/1 'Open Sans', sans-serif;
+}
+
+th a i.fa-sort, th a i.fa-sort-desc, th a i.fa-sort-asc   {
+    font-size: 15px;
+    position: relative;
+    float: right;
+    top: 3px;
+    right: 4px;
+    color: lightgray;
+
+}
+th a {
+    font-family: 'Open Sans', sans-serif;
+}
+
 #searchable-table thead tr th.unsorted {
    /* background-color: blue;*/
 }
@@ -6647,12 +6676,14 @@ span.divider {
 #searchable-table thead tr th.reverse-sorted {
 
 }
-.searchable-table th {background-color: #F7F9FC;}
+.searchable-table th {background-color: #F7F9FC;font-weight:500;color:#666}
+.searchable-table th a {color: #666}
 .searchable-table tr {border-bottom: 1px solid #e4eaed;}
+.searchable-table td {font-weight: 400;}
 
 .searchable-table tr:hover {background-color: #f0f3f5}
 .searchable-table li.add-task a p.h3 {font-size: 18px}
-.searchable-table td, .searchable-table th { border: 1px solid #eaeff1; text-align: center; font-weight: 400;}
+.searchable-table td, .searchable-table th { border: 1px solid #eaeff1; text-align: center; }
 .searchable-table th:hover {background-color: #d3d9dc;}
 /*Footer*/
 .footer{

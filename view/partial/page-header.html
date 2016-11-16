@@ -27,16 +27,16 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 			<ol class="breadcrumb">
 				{{#if isNewTaskPage}}
 					{{#if client}}
-						<li><a href="/client/{{client}}">Dashboard</a></li>
+						<li><a href="/client/{{client}}"><i class="fa fa-dashboard" aria-hidden="true" style="font-size:30px;"></i> Dashboard</a></li>
 						<li class="active">Add URL</li>
 					{{else}}
-						<li><a href="/client/none">Dashboard</a></li>
+						<li><a href="/client/none"><i class="fa fa-dashboard" aria-hidden="true" style="font-size:30px;"></i> Dashboard</a></li>
 					{{/if}}
 				{{else}}
 					{{#if isHomePage}}
-						<li><a href="/client/{{client}}">Dashboard</a></li>
+						<li><a href="/client/{{client}}" style="text-decoration: none;font-size: 22px;"><i class="fa fa-dashboard" aria-hidden="true" style="font-size:30px;"></i> Dashboard</a></li>
 					{{else}}
-						<li><a href="/client/{{task.client}}">Dashboard</a></li>
+						<li><a href="/client/{{task.client}}"><i class="fa fa-dashboard" aria-hidden="true" style="font-size:30px;"></i> Dashboard</a></li>
 					{{/if}}
 
 				{{/if}}

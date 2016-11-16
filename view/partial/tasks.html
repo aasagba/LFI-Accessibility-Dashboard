@@ -51,6 +51,9 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 		transform: translate(0, 0);
 	}
 </style>
+<script>
+
+</script>
 
 <ul class="list-unstyled clearfix crunch-bottom">
 	<table id="searchable-table" name="searchable-table" class="searchable-table" style="width:100%">
@@ -65,13 +68,13 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 				<th style="width:17%"></th>
 			</tr>-->
 			<tr>
-				<th class="unsorted" style="width:30%;"><a href="/client/{{client}}/sort/name">Page</a></th>
+				<th class="unsorted" style="width:30%;"><a href="/client/{{client}}/sort/name">Page<i class="fa {{nameSortDirection}}" aria-hidden="true"></i></a></th>
 				<th style="width:17%;">Grade</th>
-				<th style="width:7%;"><a href="/client/{{client}}/sort/error">Error</a></th>
-				<th style="width:7%;"><a href="/client/{{client}}/sort/warning">Warn</a></th>
-				<th style="width:7%;"><a href="/client/{{client}}/sort/notice">Info</a></th>
-				<th style="width:7%;">Last Run</th>
-				<th style="width:17%"></th>
+				<th style="width:7%;"><a href="/client/{{client}}/sort/error"><i class="fa fa-times-circle" aria-hidden="true" style="position: relative;right: 9px;color:red;"></i>Error<i class="fa {{errorSortDirection}}" aria-hidden="true"></i></a></th>
+				<th style="width:7%;"><a href="/client/{{client}}/sort/warning"><i class="fa fa-warning" aria-hidden="true" style="position: relative;right: 9px;color: rgb(255, 102, 0);;"></i>Warn<i class="fa {{warnSortDirection}}" aria-hidden="true"></i></a></th>
+				<th style="width:7%;"><a href="/client/{{client}}/sort/notice"><i class="fa fa-info-circle" aria-hidden="true" style="position: relative;right: 9px;color:green"></i>Info<i class="fa {{infoSortDirection}}" aria-hidden="true"></i></a></th>
+				<th style="width:9%;">Last Run</th>
+				<th style="width:14%"></th>
 			</tr>
 		</thead>
 		<tbody id="tasks">
@@ -86,7 +89,7 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 					{{#lastResult}}
 					<td style="" class="danger scores">{{count.error}}</td>
 					<td style="" class="warning scores">{{count.warning}}</td>
-					<td style="" class="info last scores">{{count.notice}}</td>
+					<td style="" class="info last scores"></i>{{count.notice}}</td>
 					{{/lastResult}}
 					<td style="">{{date-format lastResult.date format="DD MMM YYYY"}}</td>
 					{{else}}
