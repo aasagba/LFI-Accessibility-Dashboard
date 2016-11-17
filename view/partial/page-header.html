@@ -34,14 +34,16 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 					{{/if}}
 				{{else}}
 					{{#if isHomePage}}
-						<li><a href="/client/{{client}}" style="text-decoration: none;font-size: 22px;"><i class="fa fa-dashboard" aria-hidden="true" style="font-size:30px;"></i> Dashboard</a></li>
+						<li><a href="/client/{{client}}" style="text-decoration: none;font-size: 18px;color:white"><i class="fa fa-dashboard" aria-hidden="true" style="font-size:30px;"></i> Dashboard</a></li>
 					{{else}}
 						<li><a href="/client/{{task.client}}"><i class="fa fa-dashboard" aria-hidden="true" style="font-size:30px;"></i> Dashboard</a></li>
 					{{/if}}
 
 				{{/if}}
 				{{#if isTaskPage}}
-					<li class="active">{{task.name}}</li>
+
+					<li class="active"><a href="#">{{task.name}}</a></li>
+
 				{{/if}}
 				{{#if isTaskSubPage}}
 					<li><a href="{{task.href}}">{{task.name}}</a></li>

@@ -637,7 +637,8 @@ pre code {
     margin-right: auto;
     margin-left: auto;
     padding-left: 15px;
-    padding-right: 15px
+    padding-right: 15px;
+    height: 50px;
 }
 .container:before,
 .container:after {
@@ -4014,16 +4015,97 @@ textarea.input-group-sm>.input-group-btn>.btn {
 .navbar-inverse .navbar-link:hover {
     color: #2c3e50
 }
+
+/* Arrow breadcrumb */
+
+.breadcrumb {
+    padding-left: 0px;
+    list-style: none;
+    overflow: hidden;
+    font: 18px Helvetica, Arial, Sans-Serif;
+}
+.breadcrumb li {
+    float: left;
+}
+.breadcrumb li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 0 10px 65px;
+    background: brown;                   /* fallback color */
+    background: hsl(180, 5%, 45%);
+    position: relative;
+    display: block;
+    float: left;
+    height: 50px;
+    cursor: hand;
+}
+
+.breadcrumb li a:after {
+    content: " ";
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 50px solid transparent;           /* Go big on the size, and let overflow hide */
+    border-bottom: 50px solid transparent;
+    border-left: 30px solid hsl(180, 5%, 45%);
+    position: absolute;
+    top: 50%;
+    margin-top: -50px;
+    left: 100%;
+    z-index: 2;
+}
+
+.breadcrumb li a:before {
+    content: " ";
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 50px solid transparent;
+    border-bottom: 50px solid transparent;
+    border-left: 30px solid white;
+    position: absolute;
+    top: 50%;
+    margin-top: -50px;
+    margin-left: 1px;
+    left: 100%;
+    z-index: 1;
+}
+
+.breadcrumb li:first-child a {
+    padding-left: 10px;
+    padding-top: 5px;
+}
+.breadcrumb li:nth-child(2) a       { background:        hsl(180, 1%, 84%); padding-top: 13px;}
+.breadcrumb li:nth-child(2) a:after { border-left-color: hsl(180, 1%, 84%); }
+.breadcrumb li:nth-child(3) a       { background:        hsla(34,85%,55%,1); }
+.breadcrumb li:nth-child(3) a:after { border-left-color: hsla(34,85%,55%,1); }
+.breadcrumb li:nth-child(4) a       { background:        hsla(34,85%,65%,1); }
+.breadcrumb li:nth-child(4) a:after { border-left-color: hsla(34,85%,65%,1); }
+.breadcrumb li:nth-child(5) a       { background:        hsla(34,85%,75%,1); }
+.breadcrumb li:nth-child(5) a:after { border-left-color: hsla(34,85%,75%,1); }
+.breadcrumb li:last-child a {
+    /*background: transparent !important;*/
+    color: black;
+    /*pointer-events: none;*/
+    cursor: default;
+}
+
+.breadcrumb li a:hover { background: #596363; color:white;}
+.breadcrumb li a:hover:after { border-left-color: #596363 !important; }
+
+/* end arrow breadcrumb */
+
+/*
 .breadcrumb {
     padding: 10px 0px;
     /*margin-bottom: 21px;*/
-    list-style: none;
+    /*list-style: none;*/
     /*background-color: #6c7878;*/
-    color:
-    border-radius: 3px;
+    /*color:
+    border-radius: 3px;*/
     /*border: 1px dotted #889aa5;*/
 
-}
+/*}
 .breadcrumb>li {
     display: inline-block
 }
@@ -4031,15 +4113,15 @@ textarea.input-group-sm>.input-group-btn>.btn {
     content: "/\00a0";
     padding: 0 5px;
     /*color: #616d6e*/
-    color: white;
-}
+ /*   color: white;
+}*/
 .breadcrumb>.active {
     /*color: #616d6e*/
     color: white;
-}
+}/*
 .breadcrumb li a {
     color: #6c7878;
-}
+}*/
 .pager {
     padding-left: 0;
     margin: 21px 0;
@@ -6648,9 +6730,7 @@ span.divider {
 .fa-sort:before, .fa-sort-asc, .fa-sort-desc {
     padding-left: 5px;
 }
-.fa {
-    font: normal normal normal 15px/1 'Open Sans', sans-serif;
-}
+
 
 th a i.fa-sort, th a i.fa-sort-desc, th a i.fa-sort-asc   {
     font-size: 15px;
