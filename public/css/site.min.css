@@ -638,7 +638,7 @@ pre code {
     margin-left: auto;
     padding-left: 15px;
     padding-right: 15px;
-    height: 50px;
+    height: 35px;
 }
 .container:before,
 .container:after {
@@ -4036,7 +4036,7 @@ textarea.input-group-sm>.input-group-btn>.btn {
     position: relative;
     display: block;
     float: left;
-    height: 50px;
+    height: 35px;
     cursor: hand;
 }
 
@@ -4073,9 +4073,9 @@ textarea.input-group-sm>.input-group-btn>.btn {
 
 .breadcrumb li:first-child a {
     padding-left: 10px;
-    padding-top: 5px;
+    padding-top: 0px;
 }
-.breadcrumb li:nth-child(2) a       { background:        hsl(180, 1%, 84%); padding-top: 13px;}
+.breadcrumb li:nth-child(2) a       { background:        hsl(180, 1%, 84%); padding-top: 7px;}
 .breadcrumb li:nth-child(2) a:after { border-left-color: hsl(180, 1%, 84%); }
 .breadcrumb li:nth-child(3) a       { background:        hsla(34,85%,55%,1); }
 .breadcrumb li:nth-child(3) a:after { border-left-color: hsla(34,85%,55%,1); }

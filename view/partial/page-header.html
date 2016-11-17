@@ -28,15 +28,15 @@ along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 				{{#if isNewTaskPage}}
 					{{#if client}}
 						<li><a href="/client/{{client}}"><i class="fa fa-dashboard" aria-hidden="true" style="font-size:30px;"></i> Dashboard</a></li>
-						<li class="active">Add URL</li>
+						<li class="active"><a href="#" style="font-size: 18px">Add URL</a></li>
 					{{else}}
 						<li><a href="/client/none"><i class="fa fa-dashboard" aria-hidden="true" style="font-size:30px;"></i> Dashboard</a></li>
 					{{/if}}
 				{{else}}
 					{{#if isHomePage}}
-						<li><a href="/client/{{client}}" style="text-decoration: none;font-size: 18px;color:white"><i class="fa fa-dashboard" aria-hidden="true" style="font-size:30px;"></i> Dashboard</a></li>
+						<li><a href="/client/{{client}}" style="text-decoration: none;font-size: 18px;color:white;height:35px;"><i class="fa fa-dashboard" aria-hidden="true" style="font-size:30px;"></i> <span style="margin-top:7px;font-size:18px;vertical-align: top">Dashboard</span></a></li>
 					{{else}}
-						<li><a href="/client/{{task.client}}"><i class="fa fa-dashboard" aria-hidden="true" style="font-size:30px;"></i> Dashboard</a></li>
+						<li><a href="/client/{{task.client}}"><i class="fa fa-dashboard" aria-hidden="true" style="font-size:30px;"></i> <span style="margin-top:7px;font-size:18px;vertical-align: top">Dashboard</span></a></li>
 					{{/if}}
 
 				{{/if}}
