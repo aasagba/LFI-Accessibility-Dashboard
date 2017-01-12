@@ -4,3 +4,7 @@
 .idea/*
 delete.xml
 config/*
+newrelic.js
+newrelic_agent.log
+node_modules/.bin/newrelic-naming-rules
+node_modules/newrelic/

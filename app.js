@@ -14,7 +14,7 @@
 // along with pa11y-dashboard.  If not, see <http://www.gnu.org/licenses/>.
 
 'use strict';
-
+require('newrelic');
 var createClient = require('pa11y-webservice-client-node');
 var EventEmitter = require('events').EventEmitter;
 var express = require('express');
